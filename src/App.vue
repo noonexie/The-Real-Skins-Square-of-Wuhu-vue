@@ -1,16 +1,16 @@
 <template>
   <el-container
     class="layout-container-demo"
-    style="height: 80%; border: 1px solid #eee"
+    style="height: 900px; border: 1px solid #eee"
   >
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+    <el-aside style="width: 10%; background-color: rgb(238, 241, 246)">
       <el-scrollbar>
         <el-menu :default-openeds="['1', '3']">
           <el-sub-menu index="1">
             <template #title>
               <el-icon><VideoCamera /></el-icon>电影
             </template>
-            <el-menu-item index="1-1">推荐</el-menu-item>
+            <el-menu-item index="/components/HelloWorld.vue">推荐</el-menu-item>
             <el-menu-item index="1-2">排名</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="2">
@@ -60,7 +60,7 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <span>Tom</span>
+          <span>主页</span>
         </div>
       </el-header>
 
@@ -69,7 +69,7 @@
           <el-table :data="tableData">
             <el-table-column prop="name" label="名称" width="140">
             </el-table-column>
-            <el-table-column prop="url" label="链接" width="120">
+            <el-table-column prop="url" label="链接" width="600">
             </el-table-column>
             <el-table-column prop="text" label="文字说明"> </el-table-column>
           </el-table>

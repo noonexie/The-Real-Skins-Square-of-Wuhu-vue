@@ -1,5 +1,5 @@
 {
-  "name": "my-vue-app",
+  "name": "NoOne",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,8 @@
   "dependencies": {
     "@element-plus/icons-vue": "^1.0.0",
     "element-plus": "^2.0.2",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",
