@@ -10,7 +10,7 @@
             <template #title>
               <el-icon><VideoCamera /></el-icon>电影
             </template>
-            <el-menu-item index="/components/HelloWorld.vue">推荐</el-menu-item>
+            <el-menu-item index="HelloWorld">推荐</el-menu-item>
             <el-menu-item index="1-2">排名</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="2">
@@ -69,9 +69,10 @@
           <el-table :data="tableData">
             <el-table-column prop="name" label="名称" width="140">
             </el-table-column>
-            <el-table-column prop="url" label="链接" width="600">
+            <el-table-column prop="url" label="链接" width="140">
+              <el-link type="primary" href="http://www.sj021.com/bo/220802-2-1.html" target="_blank" underline>前往观看</el-link>
             </el-table-column>
-            <el-table-column prop="text" label="文字说明"> </el-table-column>
+            <el-table-column prop="text" label="上榜理由"> </el-table-column>
           </el-table>
         </el-scrollbar>
       </el-main>
@@ -81,7 +82,6 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
 import {
   VideoCamera,
   Headset,

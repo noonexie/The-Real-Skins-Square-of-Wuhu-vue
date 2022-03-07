@@ -1,10 +1,29 @@
-import { createApp } from 'vue'
-// import VueRouter from 'vue-router'
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-import App from './App.vue'
+import { createApp } from "vue";
+import { createRouter, createWebHashHistory } from "vue-router";
+import HelloWorld from "./components/HelloWorld.vue";
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
+import App from "./App.vue";
 
-const app = createApp(App)
+const VueRouter = createRouter({
+  history: createWebHashHistory(),
+  routes: [
+    {
+      path: "/",
+      component: HelloWorld,
+    },
+    {
+      path: "/w1",
+      component: HelloWorld,
+    },
+    {
+      path: "/w2",
+      component: HelloWorld,
+    },
+  ],
+});
 
-app.use(ElementPlus)
-app.mount('#app')
+const app = createApp(App);
+app.use(ElementPlus);
+app.use(VueRouter);
+app.mount("#app");
