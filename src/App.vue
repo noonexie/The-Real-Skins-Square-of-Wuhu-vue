@@ -48,6 +48,11 @@
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
         <div class="toolbar">
+          <span>------------------------------------------------------------------</span>
+          <img src="./image/1646722035560-image.png" width="100" height="50" />
+          <span>------------------------------------------------------------------</span>
+          <img src="./image/1646723521163-image.png" width="100" height="50" />
+          <span>------------------------------------------------------------------</span>
           <el-dropdown>
             <el-icon style="margin-right: 8px; margin-top: 1px"
               ><setting
@@ -70,7 +75,13 @@
             <el-table-column prop="name" label="名称" width="140">
             </el-table-column>
             <el-table-column prop="url" label="链接" width="140">
-              <el-link type="primary" href="http://www.sj021.com/bo/220802-2-1.html" target="_blank" underline>前往观看</el-link>
+              <el-link
+                type="primary"
+                href="http://www.sj021.com/bo/220802-2-1.html"
+                target="_blank"
+                underline
+                >前往观看</el-link
+              >
             </el-table-column>
             <el-table-column prop="text" label="上榜理由"> </el-table-column>
           </el-table>
