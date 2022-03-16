@@ -56,9 +56,18 @@
             /></el-icon>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>View</el-dropdown-item>
-                <el-dropdown-item>Add</el-dropdown-item>
-                <el-dropdown-item>Delete</el-dropdown-item>
+                <el-dropdown-item
+                  ><el-link
+                    type="primary"
+                    href="https://github.com/xad-noone/The-Real-Skins-Square-of-Wuhu"
+                    target="_blank"
+                    underline
+                    >仓库地址</el-link
+                  ></el-dropdown-item
+                >
+                <el-dropdown-item
+                  ><router-link to="/">好活当赏</router-link></el-dropdown-item
+                >
               </el-dropdown-menu>
             </template>
           </el-dropdown>
