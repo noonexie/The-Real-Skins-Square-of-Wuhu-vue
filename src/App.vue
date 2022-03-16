@@ -59,7 +59,7 @@
                 <el-dropdown-item
                   ><el-link
                     type="primary"
-                    href="https://github.com/xad-noone/The-Real-Skins-Square-of-Wuhu"
+                    href="https://github.com/xad-noone/The-Real-Skins-Square-of-Wuhu-vue"
                     target="_blank"
                     underline
                     >仓库地址</el-link

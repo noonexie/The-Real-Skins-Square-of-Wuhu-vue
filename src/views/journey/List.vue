@@ -1,11 +1,13 @@
 <template>
+  <p>旅游列表</p>
   <div>
     <el-input v-model="input" style="width: 30%" placeholder="请输入名称" />
     <el-button type="primary">按名称搜索</el-button>
   </div>
   <p></p>
   <el-table :data="tableData">
-    <el-table-column prop="name" label="旅游名称" width="140"> </el-table-column>
+    <el-table-column prop="name" label="旅游名称" width="140">
+    </el-table-column>
     <el-table-column prop="url" label="链接" width="140">
       <el-link
         type="primary"
@@ -17,7 +19,7 @@
     </el-table-column>
     <el-table-column prop="text" label="上榜理由"> </el-table-column>
     <el-table-column prop="count" label="点赞数" width="140"></el-table-column>
-    <el-table-column fixed="right" label="Operations" width="120">
+    <el-table-column fixed="right" label="操作" width="120">
       <template #default>
         <el-button type="text" size="small" @click="handleClick"
           >点赞</el-button
@@ -34,8 +36,8 @@ import { ref } from "vue";
 const input = ref("");
 
 const handleClick = () => {
-  console.log('click')
-}
+  console.log("click");
+};
 
 const item = {
   name: "海南逐浪度假线",
