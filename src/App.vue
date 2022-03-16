@@ -3,43 +3,43 @@
     class="layout-container-demo"
     style="height: 900px; border: 1px solid #eee"
   >
-    <el-aside style="width: 10%; background-color: rgb(238, 241, 246)">
+    <el-aside style="width: 15%; background-color: rgb(238, 241, 246)">
       <el-scrollbar>
-        <el-menu :default-openeds="['1', '3']">
+        <el-menu :default-openeds="['1', '3']" router>
           <el-sub-menu index="1">
             <template #title>
-              <el-icon><VideoCamera /></el-icon>电影
+              <el-icon><Reading /></el-icon>应试教育
             </template>
-            <el-menu-item index="HelloWorld">推荐</el-menu-item>
-            <el-menu-item index="1-2">排名</el-menu-item>
+            <el-menu-item index="/education/list">排名</el-menu-item>
+            <el-menu-item index="/education/put">推荐</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="2">
             <template #title>
-              <el-icon><Reading /></el-icon>书籍
+              <el-icon><Guide /></el-icon>毕业找我
             </template>
-            <el-menu-item index="2-1">推荐</el-menu-item>
-            <el-menu-item index="2-2">排名</el-menu-item>
+            <el-menu-item index="/graduation/list">排名</el-menu-item>
+            <el-menu-item index="/graduation/put">推荐</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="3">
             <template #title>
-              <el-icon><Headset /></el-icon>音乐
+              <el-icon><Collection /></el-icon>书友计划
             </template>
-            <el-menu-item index="3-1">推荐</el-menu-item>
-            <el-menu-item index="3-2">排名</el-menu-item>
+            <el-menu-item index="/books/list">排名</el-menu-item>
+            <el-menu-item index="/books/put">推荐</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="4">
             <template #title>
-              <el-icon><Monitor /></el-icon>游戏
+              <el-icon><VideoCamera /></el-icon>影视经典
             </template>
-            <el-menu-item index="4-1">推荐</el-menu-item>
-            <el-menu-item index="4-2">排名</el-menu-item>
+            <el-menu-item index="/videos/list">排名</el-menu-item>
+            <el-menu-item index="/videos/put">推荐</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="5">
             <template #title>
-              <el-icon><House /></el-icon>生活
+              <el-icon><Bicycle /></el-icon>驴友之家
             </template>
-            <el-menu-item index="HelloWorld">推荐</el-menu-item>
-            <el-menu-item index="5-2">排名</el-menu-item>
+            <el-menu-item index="/journey/list">排名</el-menu-item>
+            <el-menu-item index="/journey/put">推荐</el-menu-item>
           </el-sub-menu>
         </el-menu>
       </el-scrollbar>
@@ -48,11 +48,8 @@
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
         <div class="toolbar">
-          <span>------------------------------------------------------------------</span>
           <img src="./image/1646722035560-image.png" width="100" height="50" />
-          <span>------------------------------------------------------------------</span>
           <img src="./image/1646723521163-image.png" width="100" height="50" />
-          <span>------------------------------------------------------------------</span>
           <el-dropdown>
             <el-icon style="margin-right: 8px; margin-top: 1px"
               ><setting
@@ -65,26 +62,17 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <span>主页</span>
+          <span><router-link to="/">主页</router-link></span>
         </div>
       </el-header>
 
       <el-main>
         <el-scrollbar>
-          <el-table :data="tableData">
-            <el-table-column prop="name" label="名称" width="140">
-            </el-table-column>
-            <el-table-column prop="url" label="链接" width="140">
-              <el-link
-                type="primary"
-                href="http://www.sj021.com/bo/220802-2-1.html"
-                target="_blank"
-                underline
-                >前往观看</el-link
-              >
-            </el-table-column>
-            <el-table-column prop="text" label="上榜理由"> </el-table-column>
-          </el-table>
+          <router-view v-slot="{ Component }">
+            <keep-alive>
+              <component :is="Component" />
+            </keep-alive>
+          </router-view>
         </el-scrollbar>
       </el-main>
     </el-container>
@@ -92,22 +80,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
 import {
   VideoCamera,
-  Headset,
+  Collection,
   Reading,
   Setting,
-  House,
-  Monitor,
+  Guide,
+  Bicycle,
 } from "@element-plus/icons-vue";
-
-const item = {
-  name: "肖生克的救赎",
-  url: "http://www.sj021.com/bo/220802-2-1.html",
-  text: "当年的奥斯卡颁奖礼上，被如日中天的《阿甘正传》掩盖了它的光彩，而随着时间的推移，这部电影在越来越多的人们心中的地位已超越了《阿甘》。",
-};
-const tableData = ref(Array(20).fill(item));
 </script>
 
 <style scoped>

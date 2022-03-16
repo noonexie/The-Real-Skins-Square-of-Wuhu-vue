@@ -1,19 +1,20 @@
 {
-  "name": "The-Real-Skins-Square-of-Wuhu",
+  "name": "the-real-skins-square-of-wuhu",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "^1.0.0",
-    "element-plus": "^2.0.2",
+    "element-plus": "^2.0.5",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",
-    "vite": "^2.7.2"
+    "typescript": "^4.4.4",
+    "vite": "^2.7.2",
+    "vue-tsc": "^0.29.8"
   }
 }
