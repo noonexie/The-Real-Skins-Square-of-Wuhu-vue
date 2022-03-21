@@ -4,64 +4,63 @@ import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import App from "./App.vue";
 
-import Home from "./views/Home.vue";
-import VList from "./views/videos/List.vue";
-import VPut from "./views/videos/Put.vue";
-import EList from "./views/education/List.vue";
-import EPut from "./views/education/Put.vue";
-import GList from "./views/graduation/List.vue";
-import GPut from "./views/graduation/Put.vue";
-import BList from "./views/books/List.vue";
-import BPut from "./views/books/Put.vue";
-import JList from "./views/journey/List.vue";
-import JPut from "./views/journey/Put.vue";
-
 const VueRouter = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
       path: "/",
-      component: Home,
+      name: "Home",
+      component: () => import("./views/Home.vue"),
     },
     {
       path: "/education/list",
-      component: EList,
+      name: "EList",
+      component: () => import("./views/education/List.vue"),
     },
     {
       path: "/education/put",
-      component: EPut,
+      name: "EPut",
+      component: () => import("./views/education/Put.vue"),
     },
     {
       path: "/graduation/list",
-      component: GList,
+      name: "GList",
+      component: () => import("./views/graduation/List.vue"),
     },
     {
       path: "/graduation/put",
-      component: GPut,
+      name: "GPut",
+      component: () => import("./views/graduation/Put.vue"),
     },
     {
       path: "/books/list",
-      component: BList,
+      name: "BList",
+      component: () => import("./views/books/List.vue"),
     },
     {
       path: "/books/put",
-      component: BPut,
+      name: "BPut",
+      component: () => import("./views/books/Put.vue"),
     },
     {
       path: "/videos/list",
-      component: VList,
+      name: "VList",
+      component: () => import("./views/videos/List.vue"),
     },
     {
       path: "/videos/put",
-      component: VPut,
+      name: "VPut",
+      component: () => import("./views/videos/Put.vue"),
     },
     {
       path: "/journey/list",
-      component: JList,
+      name: "JList",
+      component: () => import("./views/journey/List.vue"),
     },
     {
       path: "/journey/put",
-      component: JPut,
+      name: "JPut",
+      component: () => import("./views/journey/Put.vue"),
     },
   ],
 });
