@@ -2,7 +2,9 @@ import { createApp } from "vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
+import zhCn from "element-plus/es/locale/lang/zh-cn";
 import App from "./App.vue";
+import axios from "axios";
 
 const VueRouter = createRouter({
   history: createWebHashHistory(),
@@ -20,7 +22,7 @@ const VueRouter = createRouter({
     {
       path: "/education/put",
       name: "EPut",
-      component: () => import("./views/education/Put.vue"),
+      component: () => import("./views/education/Post.vue"),
     },
     {
       path: "/graduation/list",
@@ -30,7 +32,7 @@ const VueRouter = createRouter({
     {
       path: "/graduation/put",
       name: "GPut",
-      component: () => import("./views/graduation/Put.vue"),
+      component: () => import("./views/graduation/Post.vue"),
     },
     {
       path: "/books/list",
@@ -40,7 +42,7 @@ const VueRouter = createRouter({
     {
       path: "/books/put",
       name: "BPut",
-      component: () => import("./views/books/Put.vue"),
+      component: () => import("./views/books/Post.vue"),
     },
     {
       path: "/videos/list",
@@ -50,7 +52,7 @@ const VueRouter = createRouter({
     {
       path: "/videos/put",
       name: "VPut",
-      component: () => import("./views/videos/Put.vue"),
+      component: () => import("./views/videos/Post.vue"),
     },
     {
       path: "/journey/list",
@@ -60,12 +62,18 @@ const VueRouter = createRouter({
     {
       path: "/journey/put",
       name: "JPut",
-      component: () => import("./views/journey/Put.vue"),
+      component: () => import("./views/journey/Post.vue"),
     },
   ],
 });
 
 const app = createApp(App);
-app.use(ElementPlus);
+app.use(
+  ElementPlus,
+  {
+    locale: zhCn,
+  },
+  axios
+);
 app.use(VueRouter);
 app.mount("#app");

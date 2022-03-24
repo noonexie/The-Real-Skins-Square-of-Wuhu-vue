@@ -5,7 +5,7 @@
   >
     <el-aside style="width: 15%; background-color: rgb(238, 241, 246)">
       <el-scrollbar>
-        <el-menu :default-openeds="['1', '3']" router>
+        <el-menu :default-openeds="['1', '2', '3', '4', '5']" router>
           <el-sub-menu index="1">
             <template #title>
               <el-icon><Reading /></el-icon>应试教育
@@ -59,7 +59,7 @@
                 <el-dropdown-item
                   ><el-link
                     type="primary"
-                    href="https://github.com/xad-noone/The-Real-Skins-Square-of-Wuhu-vue"
+                    href="https://github.com/noonexie/The-Real-Skins-Square-of-Wuhu-vue"
                     target="_blank"
                     underline
                     >仓库地址</el-link

@@ -4,10 +4,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
+    "@types/node": "^17.0.22",
+    "@vue/composition-api": "^1.4.9",
+    "axios": "^0.26.1",
     "element-plus": "^2.0.5",
+    "prettier": "^2.6.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13"
   },

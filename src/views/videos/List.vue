@@ -1,49 +1,129 @@
 <template>
-  <p>电影列表</p>
   <div>
-    <el-input v-model="input" style="width: 30%" placeholder="请输入名称" />
-    <el-button type="primary">按名称搜索</el-button>
-  </div>
-  <p></p>
-  <el-table :data="tableData">
-    <el-table-column prop="name" label="名称" width="140"> </el-table-column>
-    <el-table-column prop="url" label="链接" width="140">
-      <el-link
-        type="primary"
-        href="http://www.sj021.com/bo/220802-2-1.html"
-        target="_blank"
-        underline
-        >前往观看</el-link
-      >
-    </el-table-column>
-    <el-table-column prop="text" label="上榜理由"> </el-table-column>
-    <el-table-column prop="count" label="点赞数" width="140"></el-table-column>
-    <el-table-column fixed="right" label="操作" width="120">
-      <template #default>
-        <el-button type="text" size="small" @click="handleClick"
-          >点赞</el-button
+    <p>电影列表</p>
+    <el-input v-model="input" style="width: 30%" placeholder="请输入关键字" />
+    <el-button type="primary">按关键字搜索</el-button>
+    <p></p>
+    <el-table :data="state.tableData">
+      <el-table-column prop="data_name" label="名称" width="140">
+      </el-table-column>
+      <el-table-column prop="data_url" label="链接" width="140">
+        <el-link
+          type="primary"
+          href="http://www.sj021.com/bo/220802-2-1.html"
+          target="_blank"
+          underline
+          >前往观看</el-link
         >
-        <el-button type="text" size="small">点踩</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+      </el-table-column>
+      <el-table-column prop="data_text" label="上榜理由"> </el-table-column>
+      <el-table-column
+        prop="likes"
+        label="点赞数"
+        width="140"
+      ></el-table-column>
+      <el-table-column fixed="right" label="操作" width="120">
+        <template #default>
+          <el-button type="text" size="small" @click="handleClick"
+            >点赞</el-button
+          >
+          <el-button type="text" size="small">点踩</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <p></p>
+    <div class="demo-pagination-block">
+      <el-pagination
+        :currentPage="1"
+        :page-size="10"
+        :page-sizes="[5, 10, 20]"
+        :background="true"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="30"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted, reactive } from 'vue';
+import http from '../../utils/http';
 
-const input = ref("");
+interface IState {
+  search: string;
+  pageParams: {
+    pageNum: number;
+    pageSize: number;
+    total: number;
+  };
+  tableData: {
+    id: number; // 数据id
+    data_type: string; // 数据类型
+    data_name: string; // 数据名称
+    data_url: string; // 数据网址
+    data_text: string; // 数据上榜理由
+    likes: number; // 点赞数
+  }[];
+}
+
+const state: IState = reactive({
+  search: '',
+  pageParams: {
+    pageNum: 1,
+    pageSize: 10,
+    total: 0
+  },
+  tableData: []
+});
+
+// 页面加载自动调用onMounted方法
+onMounted(() => {
+  getListData();
+});
+
+const input = ref('');
 
 const handleClick = () => {
-  console.log("click");
+  console.log('click');
+};
+const getListData = async () => {
+  try {
+    const data = await getVideoShare({
+      pageNum: state.pageParams.pageNum,
+      pageSize: state.pageParams.pageSize,
+      search: state.search
+    });
+    if (data) {
+      console.log(data);
+      // state.tableData = data.list;
+      // state.pageParams.total = data.totalCount;
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-const item = {
-  name: "肖生克的救赎",
-  url: "http://www.sj021.com/bo/220802-2-1.html",
-  text: "当年的奥斯卡颁奖礼上，被如日中天的《阿甘正传》掩盖了它的光彩，而随着时间的推移，这部电影在越来越多的人们心中的地位已超越了《阿甘》。",
-  count: 1,
+const getVideoShare = (data: {
+  pageNum: number;
+  pageSize: number;
+  search: string;
+}) => {
+  return http({
+    method: 'get',
+    url: '/api/share',
+    data
+  });
 };
 
-const tableData = ref(Array(20).fill(item));
+// let tableData = ref(Array());
+
+const handleSizeChange = (val: number) => {
+  console.log(`${val} items per page`);
+};
+
+const handleCurrentChange = (val: number) => {
+  console.log(`current page: ${val}`);
+};
 </script>
