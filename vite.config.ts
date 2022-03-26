@@ -28,7 +28,7 @@ export default defineConfig({
   server: {
     https: false, // 是否开启 https
     open: false, // 是否自动在浏览器打开
-    port: 3030, // 端口号
+    port: 3000, // 端口号
     host: "0.0.0.0",
     proxy: {
       "/api": {

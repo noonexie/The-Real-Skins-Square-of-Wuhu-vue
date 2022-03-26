@@ -1,67 +1,102 @@
 <template>
-  <p>书籍推荐</p>
-  <el-form
-    ref="ruleFormRef"
-    :model="ruleForm"
-    :rules="rules"
-    label-width="120px"
-    class="demo-ruleForm"
-    :size="formSize"
-  >
-    <el-form-item label="书籍名称" prop="name">
-      <el-input v-model="ruleForm.name" style="width: 30%" />
-    </el-form-item>
-    <el-form-item label="网址" prop="url">
-      <el-input v-model="ruleForm.url" style="width: 50%" />
-    </el-form-item>
-    <el-form-item label="上榜理由" prop="desc">
-      <el-input v-model="ruleForm.desc" type="textarea" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-        >提交</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">重置</el-button>
-    </el-form-item>
-  </el-form>
+  <div>
+    <p>书籍推荐</p>
+    <el-form
+      ref="ruleFormRef"
+      :model="ruleForm"
+      :rules="rules"
+      label-width="120px"
+      class="demo-ruleForm"
+      :size="formSize"
+    >
+      <el-form-item label="书籍名称" prop="dataName">
+        <el-input v-model="ruleForm.dataName" style="width: 30%" clearable />
+      </el-form-item>
+      <el-form-item label="网址" prop="dataUrl">
+        <el-input v-model="ruleForm.dataUrl" style="width: 50%" clearable />
+      </el-form-item>
+      <el-form-item label="上榜理由" prop="dataText">
+        <el-input
+          v-model="ruleForm.dataText"
+          type="textarea"
+          :autosize="{ minRows: 2, maxRows: 4 }"
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-popconfirm
+          confirm-button-text="确定"
+          cancel-button-text="取消"
+          title="确认提交吗？"
+          @confirm="submitForm(ruleFormRef)"
+        >
+          <template #reference>
+            <el-button type="primary">提交</el-button></template
+          ></el-popconfirm
+        >
+        <el-popconfirm
+          confirm-button-text="确定"
+          cancel-button-text="取消"
+          title="确认重置吗？"
+          @confirm="resetForm(ruleFormRef)"
+        >
+          <template #reference>
+            <el-button>重置</el-button>
+          </template></el-popconfirm
+        >
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
-import type { FormInstance } from "element-plus";
+import { ElMessage, FormInstance } from "element-plus";
+import { postShare } from "../../api/skins";
 
 const formSize = ref("default");
+
 const ruleFormRef = ref<FormInstance>();
+
 const ruleForm = reactive({
-  name: "",
-  url: "",
-  desc: "",
+  id: 0,
+  dataType: "book",
+  dataName: "",
+  dataUrl: "",
+  dataText: "",
+  likes: 0,
 });
 
 const rules = reactive({
-  name: [
+  dataName: [
     { required: true, message: "请输入您推荐的书籍名称", trigger: "blur" },
     // { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
   ],
-  url: [{ required: true, message: "请输入您推荐书籍的网址", trigger: "blur" }],
-  desc: [
+  dataUrl: [
+    { required: true, message: "请输入您推荐书籍的网址", trigger: "blur" },
+  ],
+  dataText: [
     { required: true, message: "请输入您推荐书籍的上榜理由", trigger: "blur" },
   ],
 });
+
+const resetForm = (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  formEl.resetFields();
+};
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid: any, fields: any) => {
     if (valid) {
-      console.log("submit!");
+      postShare(ruleForm);
+      ElMessage({
+        message: "提交成功",
+        type: "success",
+      });
+      formEl.resetFields();
     } else {
       console.log("error submit!", fields);
     }
   });
-};
-
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  formEl.resetFields();
 };
 </script>
