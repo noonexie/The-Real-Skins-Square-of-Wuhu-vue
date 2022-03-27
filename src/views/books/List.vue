@@ -88,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from "vue";
+import { onActivated, onMounted, reactive } from "vue";
 import { getShare, putShare } from "../../api/skins";
 
 interface IState {
@@ -119,7 +119,8 @@ const state: IState = reactive({
 });
 
 // 页面加载自动调用onMounted方法
-onMounted(() => {
+// 页面跳转后自动调用onMounted方法
+onActivated(() => {
   getListData();
 });
 

@@ -52,6 +52,7 @@
 import { reactive, ref } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import { postShare } from "../../api/skins";
+import { useRouter } from "vue-router";
 
 const formSize = ref("default");
 
@@ -84,6 +85,12 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
+const router = useRouter();
+
+const routerUrl = () => {
+  router.push("/videos/list");
+};
+
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid: any, fields: any) => {
@@ -94,6 +101,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         type: "success",
       });
       formEl.resetFields();
+      routerUrl();
     } else {
       console.log("error submit!", fields);
     }
