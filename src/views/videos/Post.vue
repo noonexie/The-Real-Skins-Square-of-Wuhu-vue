@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>电影推荐</p>
+    <p>影视推荐</p>
     <el-form
       ref="ruleFormRef"
       :model="ruleForm"

@@ -10,7 +10,12 @@
     <el-button type="primary" @click="getListData">按关键字搜索</el-button>
     <p></p>
     <el-table :data="state.tableData">
-      <el-table-column prop="id" label="ID" width="100"></el-table-column>
+      <el-table-column
+        prop="id"
+        label="ID"
+        width="100"
+        sortable
+      ></el-table-column>
       <el-table-column prop="dataName" label="名称" width="140">
       </el-table-column>
       <el-table-column
@@ -34,6 +39,7 @@
         prop="likes"
         label="点赞数"
         width="140"
+        sortable
       ></el-table-column>
       <el-table-column fixed="right" label="操作" width="120">
         <template #default="scope">

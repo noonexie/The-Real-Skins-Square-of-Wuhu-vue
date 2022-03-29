@@ -5,7 +5,13 @@
   >
     <el-aside style="width: 15%; background-color: rgb(238, 241, 246)">
       <el-scrollbar>
-        <el-menu :default-openeds="['1', '2', '3', '4', '5']" router>
+        <!--添加:default-active="$route.path"实现事件触发跳转侧边栏选中状态也改变  -->
+        <el-menu
+          :default-active="$route.path"
+          active-text-color="#8cc5ff"
+          :default-openeds="['1', '2', '3', '4', '5']"
+          router
+        >
           <el-sub-menu index="1">
             <template #title>
               <el-icon><Reading /></el-icon>应试教育
@@ -46,10 +52,29 @@
     </el-aside>
 
     <el-container>
-      <el-header style="text-align: right; font-size: 12px">
+      <el-header>
+        <div>
+          <span>
+            <img
+              src="./image/1646722035560-image.png"
+              width="100"
+              height="50"
+              style="margin-left: 20%; margin-top: 0.3%"
+            />
+          </span>
+          <span style="margin-left: 20%">
+            <font size="5" face="宋体">芜湖~</font>
+          </span>
+          <span>
+            <img
+              src="./image/1646723521163-image.png"
+              width="100"
+              height="50"
+              style="margin-left: 20%; margin-top: 0.3%"
+            />
+          </span>
+        </div>
         <div class="toolbar">
-          <img src="./image/1646722035560-image.png" width="100" height="50" />
-          <img src="./image/1646723521163-image.png" width="100" height="50" />
           <el-dropdown>
             <el-icon style="margin-right: 8px; margin-top: 1px"
               ><setting
@@ -102,7 +127,7 @@ import {
 <style scoped>
 .layout-container-demo .el-header {
   position: relative;
-  background-color: #b3c0d1;
+  background-color: #f2f6fc;
   color: var(--el-text-color-primary);
 }
 .layout-container-demo .el-aside {
@@ -119,6 +144,8 @@ import {
   padding: 0;
 }
 .layout-container-demo .toolbar {
+  text-align: right;
+  font-size: 12px;
   position: absolute;
   display: inline-flex;
   align-items: center;

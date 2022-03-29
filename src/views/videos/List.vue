@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>电影列表</p>
+    <p>影视列表</p>
     <el-input
       v-model="state.search"
       style="width: 30%"
@@ -13,7 +13,12 @@
       :data="state.tableData"
       :default-sort="{ prop: 'id', order: 'descending' }"
     >
-      <el-table-column prop="id" label="ID" width="100"></el-table-column>
+      <el-table-column
+        prop="id"
+        label="ID"
+        width="100"
+        sortable
+      ></el-table-column>
       <el-table-column prop="dataName" label="名称" width="140">
       </el-table-column>
       <el-table-column
@@ -37,6 +42,7 @@
         prop="likes"
         label="点赞数"
         width="140"
+        sortable
       ></el-table-column>
       <el-table-column fixed="right" label="操作" width="120">
         <template #default="scope">
