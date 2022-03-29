@@ -9,7 +9,11 @@
     />
     <el-button type="primary" @click="getListData">按关键字搜索</el-button>
     <p></p>
-    <el-table :data="state.tableData">
+    <el-table
+      :data="state.tableData"
+      :default-sort="{ prop: 'id', order: 'descending' }"
+    >
+      <el-table-column prop="id" label="ID" width="100"></el-table-column>
       <el-table-column prop="dataName" label="名称" width="140">
       </el-table-column>
       <el-table-column
