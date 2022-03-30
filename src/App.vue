@@ -59,18 +59,18 @@
               src="./image/1646722035560-image.png"
               width="100"
               height="50"
-              style="margin-left: 20%; margin-top: 0.3%"
+              style="margin-left: 10%; margin-top: 0.3%"
             />
           </span>
-          <span style="margin-left: 20%">
-            <font size="5" face="宋体">芜湖~</font>
+          <span style="margin-left: 10%; font-style: italic; font-size: 40px">
+            芜湖真皮广场
           </span>
           <span>
             <img
               src="./image/1646723521163-image.png"
               width="100"
               height="50"
-              style="margin-left: 20%; margin-top: 0.3%"
+              style="margin-left: 10%; margin-top: 0.3%"
             />
           </span>
         </div>

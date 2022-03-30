@@ -46,33 +46,13 @@
           <el-button
             type="text"
             size="small"
-            @click="
-              changeLikes(
-                1,
-                scope.row.id,
-                scope.row.dataType,
-                scope.row.dataName,
-                scope.row.dataUrl,
-                scope.row.dataText,
-                scope.row.likes
-              )
-            "
+            @click="changeLikes(1, scope.row.id)"
             >点赞</el-button
           >
           <el-button
             type="text"
             size="small"
-            @click="
-              changeLikes(
-                0,
-                scope.row.id,
-                scope.row.dataType,
-                scope.row.dataName,
-                scope.row.dataUrl,
-                scope.row.dataText,
-                scope.row.likes
-              )
-            "
+            @click="changeLikes(0, scope.row.id)"
             >点踩</el-button
           >
         </template>
@@ -96,7 +76,7 @@
 
 <script setup lang="ts">
 import { onActivated, onMounted, reactive } from "vue";
-import { getShare, putShare } from "../../api/skins";
+import { getShareById, getAllShare, putLikes } from "../../api/skins";
 
 interface IState {
   search: string;
@@ -130,35 +110,15 @@ onActivated(() => {
   getListData();
 });
 
-const changeLikes = (
-  changeType: number,
-  id_h: number,
-  dataType_h: string,
-  dataName_h: string,
-  dataUrl_h: string,
-  dataText_h: string,
-  like_h: number
-) => {
+const changeLikes = async (changeType: number, id_h: number) => {
+  const data = await getShareById(id_h);
+
   if (changeType == 1) {
-    putShare({
-      id: id_h,
-      dataType: dataType_h,
-      dataName: dataName_h,
-      dataUrl: dataUrl_h,
-      dataText: dataText_h,
-      likes: like_h + 1,
-    });
+    putLikes({ id: id_h, likes: data.data.data.likes + 1 });
   }
 
   if (changeType == 0) {
-    putShare({
-      id: id_h,
-      dataType: dataType_h,
-      dataName: dataName_h,
-      dataUrl: dataUrl_h,
-      dataText: dataText_h,
-      likes: like_h - 1,
-    });
+    putLikes({ id: id_h, likes: data.data.data.likes - 1 });
   }
 
   getListData();
@@ -166,7 +126,7 @@ const changeLikes = (
 
 const getListData = async () => {
   try {
-    const data = await getShare({
+    const data = await getAllShare({
       pageNum: state.pageParams.pageNum,
       pageSize: state.pageParams.pageSize,
       type: "education",

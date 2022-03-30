@@ -2,9 +2,20 @@ import http from "../utils/http";
 
 // 真皮广场 --------------------------------------------------------------------------------------------------------------------------------
 /**
- * 数据查询接口
+ * 按ID查询
  */
-export const getShare = (params: {
+export const getShareById = (id: number) => {
+  return http({
+    method: "get",
+    url: `/api/share/listById/${id}`,
+    // 注意url用``包裹而不是""
+  });
+};
+
+/**
+ * 获取所有数据并分页
+ */
+export const getAllShare = (params: {
   // 不加params：get的参数传不进去，即不会/share?num=X&size=X&这样请求
   pageNum: number;
   pageSize: number;
@@ -13,7 +24,7 @@ export const getShare = (params: {
 }) => {
   return http({
     method: "get",
-    url: "/api/share",
+    url: "/api/share/listAll",
     params,
   });
 };
@@ -23,11 +34,11 @@ export const getShare = (params: {
  */
 export const postShare = (data: {
   id: number;
-  dataType: string;
-  dataName: string;
-  dataUrl: string;
-  dataText: string;
-  likes: number;
+  dataType?: string;
+  dataName?: string;
+  dataUrl?: string;
+  dataText?: string;
+  likes?: number;
 }) => {
   return http({
     method: "post",
@@ -39,14 +50,7 @@ export const postShare = (data: {
 /**
  * 数据修改接口
  */
-export const putShare = (data: {
-  id: number;
-  dataType: string;
-  dataName: string;
-  dataUrl: string;
-  dataText: string;
-  likes: number;
-}) => {
+export const putLikes = (data: { id: number; likes: number }) => {
   return http({
     method: "put",
     url: "/api/share",
