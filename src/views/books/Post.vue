@@ -51,7 +51,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
-import { postShare } from "../../api/skins";
+import { postShare } from "@/api/skins";
 import { useRouter } from "vue-router";
 
 const formSize = ref("default");

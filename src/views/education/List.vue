@@ -79,7 +79,7 @@
 
 <script setup lang="ts">
 import { onActivated, onMounted, reactive } from "vue";
-import { getShareById, getAllShare, putLikes } from "../../api/skins";
+import { getShareById, getAllShare, putLikes } from "@/api/skins";
 
 interface IState {
   search: string;

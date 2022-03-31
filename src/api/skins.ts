@@ -34,11 +34,11 @@ export const getAllShare = (params: {
  */
 export const postShare = (data: {
   id: number;
-  dataType?: string;
-  dataName?: string;
-  dataUrl?: string;
-  dataText?: string;
-  likes?: number;
+  dataType: string;
+  dataName: string;
+  dataUrl: string;
+  dataText: string;
+  likes: number;
 }) => {
   return http({
     method: "post",
@@ -50,7 +50,7 @@ export const postShare = (data: {
 /**
  * 数据修改接口
  */
-export const putLikes = (data: { id: number; likes: number }) => {
+export const putLikes = (data: any) => {
   return http({
     method: "put",
     url: "/api/share",
