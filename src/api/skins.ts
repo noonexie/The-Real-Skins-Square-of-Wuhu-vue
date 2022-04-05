@@ -38,11 +38,12 @@ export const postShare = (data: {
   dataName: string;
   dataUrl: string;
   dataText: string;
+  imgUrl: string;
   likes: number;
 }) => {
   return http({
     method: "post",
-    url: "/api/share",
+    url: "/api/share/dataShare",
     data,
   });
 };

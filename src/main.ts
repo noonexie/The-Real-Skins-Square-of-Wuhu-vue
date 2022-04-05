@@ -6,6 +6,9 @@ import zhCn from "element-plus/es/locale/lang/zh-cn";
 import App from "./App.vue";
 import axios from "axios";
 
+/**
+ * 这里面的路由都作用在App.vue里面，如果App.vue里面写了侧边栏，登录页面也会嵌在带有侧边栏页面的主体里
+ */
 const VueRouter = createRouter({
   history: createWebHashHistory(),
   routes: [

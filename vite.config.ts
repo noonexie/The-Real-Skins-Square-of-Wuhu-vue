@@ -5,6 +5,7 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  base: process.env.NODE_ENV === "production" ? "./" : "/",
   // 配置文件别名 vite1.0 是 /@/  2.0改为/@
   //这里是将src目录配置别名为/@方便在项目中导入src目录下的文件
   resolve: {
@@ -28,7 +29,7 @@ export default defineConfig({
   server: {
     https: false, // 是否开启 https
     open: false, // 是否自动在浏览器打开
-    port: 3000, // 端口号
+    port: 3030, // 端口号
     host: "0.0.0.0",
     proxy: {
       "/api": {
