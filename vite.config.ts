@@ -34,7 +34,7 @@ export default defineConfig({
     host: "0.0.0.0",
     proxy: {
       "/api": {
-        target: "http://localhost:8080", // 后台接口
+        target: "http://9vi8vb.natappfree.cc", // 后台接口
         changeOrigin: true, //是否设置同源，输入是的
         secure: false, // 如果是https接口，需要配置这个参数
         // ws: true, //websocket支持
