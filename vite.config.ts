@@ -20,10 +20,11 @@ export default defineConfig({
   // },
   // 打包配置
   build: {
-    target: "modules",
-    outDir: "dist", // 指定输出路径
-    assetsDir: "assets", //指定生成静态资源的存放路径
-    minify: "terser", //混淆器，terset构建后文件体积更小
+    base: "./",
+    // target: "modules",
+    // outDir: "dist", // 指定输出路径
+    // assetsDir: "assets", //指定生成静态资源的存放路径
+    // minify: "terser", //混淆器，terset构建后文件体积更小
   },
   // 本地运行配置，及反向代理配置
   server: {

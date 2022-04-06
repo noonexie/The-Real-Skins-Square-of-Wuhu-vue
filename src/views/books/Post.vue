@@ -6,7 +6,6 @@
       :model="ruleForm"
       :rules="rules"
       label-width="120px"
-      class="demo-ruleForm"
       :size="formSize"
     >
       <el-form-item label="书籍名称" prop="dataName">
@@ -64,6 +63,7 @@ const ruleForm = reactive({
   dataName: "",
   dataUrl: "",
   dataText: "",
+  imgUrl: "",
   likes: 0,
 });
 

@@ -6,7 +6,6 @@
       :model="ruleForm"
       :rules="rules"
       label-width="120px"
-      class="demo-ruleForm"
       :size="formSize"
     >
       <el-form-item label="电影名称" prop="dataName">
