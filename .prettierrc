@@ -5,24 +5,31 @@
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[vue]": {
+  "[less]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[Typescript]": {
+  "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
-  "prettier.tabWidth": 4,
+  "prettier.printWidth": 120,
+  "prettier.tabWidth": 2,
+  "prettier.useTabs": false,
   "prettier.semi": true,
   "prettier.singleQuote": true,
+  "prettier.proseWrap": "preserve",
   "prettier.arrowParens": "avoid",
   "prettier.bracketSpacing": true,
+  "prettier.disableLanguages": ["vue"],
+  "prettier.endOfLine": "auto",
+  "prettier.eslintIntegration": false,
   "prettier.htmlWhitespaceSensitivity": "ignore",
   "prettier.ignorePath": ".prettierignore",
-  "prettier.jsxBracketSameLine": false,
+  "prettier.jsxBracketSameLine": true,
   "prettier.jsxSingleQuote": false,
   "prettier.parser": "babylon",
   "prettier.requireConfig": false,
   "prettier.stylelintIntegration": false,
+  "prettier.trailingComma": "es5",
   "prettier.tslintIntegration": false
 }

@@ -1,6 +1,7 @@
 {
   "name": "the-real-skins-square-of-wuhu-vue",
   "version": "1.0.0",
+  "license": "ISC",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -14,7 +15,6 @@
     "element-plus": "^2.0.5",
     "prettier": "^2.6.0",
     "vue": "^3.2.25",
-    "vue-property-decorator": "^9.1.2",
     "vue-router": "^4.0.13"
   },
   "devDependencies": {

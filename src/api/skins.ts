@@ -1,4 +1,4 @@
-import http from "../utils/http";
+import http from "@/utils/http";
 
 // 真皮广场 --------------------------------------------------------------------------------------------------------------------------------
 /**
@@ -7,7 +7,7 @@ import http from "../utils/http";
 export const getShareById = (id: number) => {
   return http({
     method: "get",
-    url: `/api/share/listById/${id}`,
+    url: `api/share/listById/${id}`,
     // 注意url用``包裹而不是""
   });
 };
@@ -24,7 +24,7 @@ export const getAllShare = (params: {
 }) => {
   return http({
     method: "get",
-    url: "/api/share/listAll",
+    url: `/api/share/listAll`,
     params,
   });
 };
@@ -43,7 +43,7 @@ export const postShare = (data: {
 }) => {
   return http({
     method: "post",
-    url: "/api/share/dataShare",
+    url: `/api/share/dataShare`,
     data,
   });
 };
@@ -54,7 +54,7 @@ export const postShare = (data: {
 export const putLikes = (data: any) => {
   return http({
     method: "put",
-    url: "/api/share",
+    url: `/api/share`,
     data,
   });
 };
