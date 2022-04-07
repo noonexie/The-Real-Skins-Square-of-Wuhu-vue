@@ -99,3 +99,5 @@ app.use(
 );
 app.use(VueRouter);
 app.mount("#app");
+
+export default VueRouter;

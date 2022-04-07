@@ -166,8 +166,9 @@ const submitForm = async (
         ruleForm.imgUrl.substring(ruleForm.imgUrl.length - 1) == ","
           ? ruleForm.imgUrl.substring(0, ruleForm.imgUrl.length - 1)
           : ruleForm.imgUrl;
-
       // console.log(ruleForm.imgUrl);
+
+      // 未作提交失败处理
       postShare(ruleForm);
       ElMessage({
         message: "提交成功",

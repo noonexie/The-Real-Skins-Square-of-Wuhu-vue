@@ -1,6 +1,37 @@
 import http from "@/utils/http";
 
-// 真皮广场 --------------------------------------------------------------------------------------------------------------------------------
+// 真皮广场 用户登录--------------------------------------------------------------------------------------------------------------------------------
+/**
+ * 登录接口
+ * @param id
+ * @returns
+ */
+export const postLogin = (data: { username: string; password: string }) => {
+  return http({
+    method: "post",
+    url: `/api/user/login`,
+    data,
+  });
+};
+
+/**
+ * 注册接口
+ * @param id
+ * @returns
+ */
+export const postRegister = (data: {
+  username: string;
+  password: string;
+  nickname: string;
+}) => {
+  return http({
+    method: "post",
+    url: `/api/user/register`,
+    data,
+  });
+};
+
+// 真皮广场 用户分享--------------------------------------------------------------------------------------------------------------------------------
 /**
  * 按ID查询
  */
