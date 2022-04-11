@@ -9,7 +9,7 @@ import http from "@/utils/http";
 export const postLogin = (data: { username: string; password: string }) => {
   return http({
     method: "post",
-    url: `/api/user/login`,
+    url: `/user/login`,
     data,
   });
 };
@@ -26,8 +26,21 @@ export const postRegister = (data: {
 }) => {
   return http({
     method: "post",
-    url: `/api/user/register`,
+    url: `/user/register`,
     data,
+  });
+};
+
+/**
+ * 根据id获取用户信息
+ * @param id
+ * @returns
+ */
+export const getUserById = (id: number) => {
+  return http({
+    method: "get",
+    url: `/user/${id}`,
+    // data,
   });
 };
 
@@ -38,7 +51,7 @@ export const postRegister = (data: {
 export const getShareById = (id: number) => {
   return http({
     method: "get",
-    url: `api/share/listById/${id}`,
+    url: `/share/listById/${id}`,
     // 注意url用``包裹而不是""
   });
 };
@@ -55,7 +68,7 @@ export const getAllShare = (params: {
 }) => {
   return http({
     method: "get",
-    url: `/api/share/listAll`,
+    url: `/share/listAll`,
     params,
   });
 };
@@ -74,7 +87,7 @@ export const postShare = (data: {
 }) => {
   return http({
     method: "post",
-    url: `/api/share/dataShare`,
+    url: `/share/dataShare`,
     data,
   });
 };
@@ -85,7 +98,7 @@ export const postShare = (data: {
 export const putLikes = (data: any) => {
   return http({
     method: "put",
-    url: `/api/share`,
+    url: `/share`,
     data,
   });
 };

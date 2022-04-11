@@ -35,6 +35,11 @@ const VueRouter = createRouter({
           component: () => import("./views/Home.vue"),
         },
         {
+          path: "/user",
+          name: "User",
+          component: () => import("./views/login/User.vue"),
+        },
+        {
           path: "education/list",
           name: "EList",
           component: () => import("./views/education/List.vue"),
@@ -89,6 +94,20 @@ const VueRouter = createRouter({
   ],
 });
 
+// ---------------------- 路由拦截 方法 -----------------------------------//
+VueRouter.beforeEach((to, from, next) => {
+  // document.title = `${to.meta.title} | vue-manage-system`; //可以设置网站头部
+  const role = localStorage.getItem("user");
+  if (!role && to.path !== "/login" && to.path !== "/register") {
+    next("/login");
+  } else {
+    if (role && to.path === "/login") {
+      next("/home");
+    }
+    next();
+  }
+});
+
 const app = createApp(App);
 app.use(
   ElementPlus,
@@ -100,4 +119,5 @@ app.use(
 app.use(VueRouter);
 app.mount("#app");
 
+//export default后，别的文件通过import就可以使用
 export default VueRouter;

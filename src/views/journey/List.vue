@@ -1,15 +1,20 @@
 <template>
   <div>
-    <p>旅行列表</p>
-    <el-input
-      v-model="state.search"
-      style="width: 30%"
-      placeholder="请输入关键字"
-      clearable
-    />
-    <el-button type="primary" @click="getListData">按关键字搜索</el-button>
-    <p></p>
+    <div>
+      <p>驴友列表</p>
+      <el-input
+        v-model="state.search"
+        style="width: 30%"
+        placeholder="请输入关键字"
+        clearable
+      />
+      <el-button type="primary" @click="getListData">按关键字搜索</el-button>
+      <p></p>
+    </div>
+
     <el-table
+      stripe
+      style="width: 100%"
       :data="state.tableData"
       :default-sort="{ prop: 'id', order: 'descending' }"
     >
@@ -37,6 +42,7 @@
           >
         </template>
       </el-table-column>
+
       <el-table-column prop="dataText" label="上榜理由"> </el-table-column>
       <el-table-column
         prop="likes"
@@ -44,7 +50,24 @@
         width="140"
         sortable
       ></el-table-column>
-      <el-table-column fixed="right" label="操作" width="120">
+
+      <el-table-column label="图片" width="140">
+        <template #default="scope">
+          <el-image
+            style="width: 100px; height: 100px"
+            :src="(scope.row.imgUrl || state.strNull).split(state.strSplit)[0]"
+            :preview-src-list="
+              (scope.row.imgUrl || state.strNull).split(state.strSplit)
+            "
+            :initial-index="4"
+            fit="contain"
+            :preview-teleported="true"
+          />
+          <!-- preview-teleported="true"解决预览被表格遮挡问题 -->
+        </template>
+      </el-table-column>
+
+      <el-table-column label="操作" width="120">
         <template #default="scope">
           <el-button
             type="text"
@@ -62,7 +85,7 @@
       </el-table-column>
     </el-table>
     <p></p>
-    <div class="demo-pagination-block">
+    <div>
       <el-pagination
         :currentPage="state.pageParams.pageNum"
         :page-size="state.pageParams.pageSize"
@@ -79,8 +102,9 @@
 
 <script setup lang="ts">
 import { onActivated, onMounted, reactive } from "vue";
-import { getShareById, getAllShare, putLikes } from "@/api/skins";
+import { getAllShare, getShareById, putLikes } from "@/api/skins";
 
+//定义数据结构
 interface IState {
   search: string;
   pageParams: {
@@ -94,8 +118,12 @@ interface IState {
     dataName: string; // 数据名称
     dataUrl: string; // 数据网址
     dataText: string; // 数据上榜理由
+    imgUrl: string; // 图片地址字符串集
     likes: number; // 点赞数
   }[];
+  // dataImage: string[][]; //图片地址字符串数组//弃用改为scope方式
+  strSplit: string;
+  strNull: string;
 }
 
 const state: IState = reactive({
@@ -106,9 +134,13 @@ const state: IState = reactive({
     total: 0,
   },
   tableData: [],
+  dataImage: [],
+  strSplit: ",",
+  strNull: "",
 });
 
 // 页面加载自动调用onMounted方法
+// 路由点击即自动调用onMounted方法
 onActivated(() => {
   getListData();
 });

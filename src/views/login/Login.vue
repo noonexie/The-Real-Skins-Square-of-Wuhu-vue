@@ -50,11 +50,10 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { Lock, User } from "@element-plus/icons-vue";
-import { useRouter } from "vue-router";
 import { ElMessage, FormInstance } from "element-plus";
 import { postLogin } from "@/api/skins";
+import VueRouter from "@/main";
 
-const router = useRouter();
 const ruleFormRef = ref<FormInstance>();
 const userForm = reactive({
   username: "",
@@ -84,10 +83,10 @@ const login = async (formEl: FormInstance | undefined) => {
         });
         formEl.resetFields();
 
-        sessionStorage.setItem("user", JSON.stringify(res.data)); // 缓存用户信息
+        localStorage.setItem("user", JSON.stringify(res.data)); // 缓存用户信息
 
         //登录成功后跳转到主页
-        router.push("/");
+        VueRouter.push("/");
       }
     } else {
       // console.log("error submit!");
@@ -97,6 +96,6 @@ const login = async (formEl: FormInstance | undefined) => {
 
 // 前往注册
 const register = () => {
-  router.push("/register");
+  VueRouter.push("/register");
 };
 </script>

@@ -61,11 +61,10 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { Lock, User, Avatar } from "@element-plus/icons-vue";
-import { useRouter } from "vue-router";
 import { ElMessage, FormInstance } from "element-plus";
 import { postRegister } from "@/api/skins";
+import VueRouter from "@/main";
 
-const router = useRouter();
 const ruleFormRef = ref<FormInstance>();
 const userForm = reactive({
   username: "",
@@ -122,7 +121,7 @@ const register = async (formEl: FormInstance | undefined) => {
         });
         formEl.resetFields();
         //登录成功后跳转到登录页面
-        router.push("/login");
+        VueRouter.push("/login");
       }
     } else {
       // console.log("error submit!");

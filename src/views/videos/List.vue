@@ -18,14 +18,12 @@
       :data="state.tableData"
       :default-sort="{ prop: 'id', order: 'descending' }"
     >
-      <el-table-column
-        prop="id"
-        label="ID"
-        width="100"
-        sortable
-      ></el-table-column>
+      <el-table-column prop="id" label="ID" width="100" sortable>
+      </el-table-column>
+
       <el-table-column prop="dataName" label="名称" width="140">
       </el-table-column>
+
       <el-table-column
         prop="dataUrl"
         label="链接"
@@ -38,18 +36,15 @@
             :href="scope.row.dataUrl"
             target="_blank"
             underline
-            >前往观看</el-link
-          >
+            >前往观看
+          </el-link>
         </template>
       </el-table-column>
 
       <el-table-column prop="dataText" label="上榜理由"> </el-table-column>
-      <el-table-column
-        prop="likes"
-        label="点赞数"
-        width="140"
-        sortable
-      ></el-table-column>
+
+      <el-table-column prop="likes" label="点赞数" width="140" sortable>
+      </el-table-column>
 
       <el-table-column label="图片" width="140">
         <template #default="scope">
@@ -73,14 +68,15 @@
             type="text"
             size="small"
             @click="changeLikes(1, scope.row.id)"
-            >点赞</el-button
-          >
+            >点赞
+          </el-button>
+
           <el-button
             type="text"
             size="small"
             @click="changeLikes(0, scope.row.id)"
-            >点踩</el-button
-          >
+            >点踩
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

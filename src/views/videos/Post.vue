@@ -8,7 +8,7 @@
       label-width="120px"
       :size="formSize"
     >
-      <el-form-item label="电影名称" prop="dataName">
+      <el-form-item label="影视名称" prop="dataName">
         <el-input v-model="ruleForm.dataName" style="width: 30%" clearable />
       </el-form-item>
 
@@ -53,8 +53,8 @@
           <!-- ts无法使用this.$refs.ref,ref操作可以通过方法传到bom层 -->
           <template #reference>
             <el-button type="primary">提交</el-button></template
-          ></el-popconfirm
-        >
+          >
+        </el-popconfirm>
         <el-popconfirm
           confirm-button-text="确定"
           cancel-button-text="取消"
@@ -63,8 +63,8 @@
         >
           <template #reference>
             <el-button>重置</el-button>
-          </template></el-popconfirm
-        >
+          </template>
+        </el-popconfirm>
       </el-form-item>
     </el-form>
   </div>
@@ -72,11 +72,10 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
-import { ElMessage, FormInstance } from "element-plus";
+import { ElMessage, FormInstance, UploadProps } from "element-plus";
 import { postShare } from "@/api/skins";
-import { useRouter } from "vue-router";
 import { Plus } from "@element-plus/icons-vue";
-import type { UploadProps, UploadUserFile } from "element-plus";
+import VueRouter from "@/main";
 
 const formSize = ref("default");
 const dialogImageUrl = ref("");
@@ -120,11 +119,9 @@ const resetForm = (
   uploadEL.clearFiles();
 };
 
-const router = useRouter();
-
 // 路由跳转
 const routerUrl = () => {
-  router.push("/videos/list");
+  VueRouter.push("/videos/list");
 };
 
 // 清除上传图片的URL
@@ -156,7 +153,7 @@ const submitForm = async (
   uploadEL: any | undefined
 ) => {
   if (!formEl) return;
-  await formEl.validate((valid: any, fields: any) => {
+  await formEl.validate(async (valid: any, fields: any) => {
     if (valid) {
       for (let index = 0; index < arrayImg.length; index++) {
         const element = arrayImg[index];
@@ -169,11 +166,14 @@ const submitForm = async (
       // console.log(ruleForm.imgUrl);
 
       // 未作提交失败处理
-      postShare(ruleForm);
-      ElMessage({
-        message: "提交成功",
-        type: "success",
-      });
+      const res = await postShare(ruleForm);
+      if (res.data.code == 0) {
+        ElMessage({
+          message: "提交成功",
+          type: "success",
+        });
+      }
+
       formEl.resetFields();
       uploadEL.clearFiles();
       routerUrl();

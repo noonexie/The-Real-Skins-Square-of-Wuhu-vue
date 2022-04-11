@@ -5,12 +5,14 @@ import axios from "axios";
  * @see https://github.com/axios/axios#request-config
  */
 const configMT = {
+  // baseURL: "wuhuback.vip.frp.wlphp.com:88",//app
+  baseURL: "/api", //web
   // baseURL: process.env.VUE_APP_ENV === 'development' ? process.env.VUE_APP_API_HOST : '',
   timeout: 60000,
-  withCredentials: true, // 跨域请求携带Cookie
-  headers: {
-    "X-Requested-With": "XMLHttpRequest",
-  },
+  // withCredentials: true, // 跨域请求携带Cookie
+  // headers: {
+  //   "X-Requested-With": "XMLHttpRequest",
+  // },
 };
 
 const instance = axios.create(configMT);
@@ -28,7 +30,8 @@ instance.interceptors.request.use(
     config.headers["Content-Type"] = "application/json;charset=utf-8";
 
     // 取出sessionStorage里面缓存的用户信息
-    let userJson = sessionStorage.getItem("user");
+    // let userJson = sessionStorage.getItem("user"); //sessionStorage存在浏览器内存，浏览器一关就没了
+    let userJson = localStorage.getItem("user"); //localStorage存在用户本地，不清楚浏览器本地缓存一直都在？
     if (!whiteUrls.includes(config.url)) {
       // 校验请求白名单
       if (!userJson) {
@@ -45,21 +48,14 @@ instance.interceptors.request.use(
   }
 );
 
-VueRouter.beforeEach((to, from, next) => {
-  if (to.meta.requireAuth) {
-    // 判断该路由是否需要登录权限
-    if (sessionStorage.getItem("user")) {
-      // 通过vuex sessionStorage里面缓存的用户信息是否存在
-      next();
-    } else {
-      next({
-        path: "/login",
-        query: { redirect: to.fullPath }, // 将跳转的路由path作为参数，登录成功后跳转到该路由
-      });
-    }
-  } else {
-    next();
-  }
-});
+//路由拦截器
+// 任何路由之前都会执行
+// VueRouter.beforeEach((to, from, next) => {
+//   // 判断该路由是否需要登录权限
+//   if (!sessionStorage.getItem("user")) {
+//     // 通过vuex sessionStorage里面缓存的用户信息是否存在
+//     VueRouter.push("/login");
+//   }
+// });
 
 export default instance;

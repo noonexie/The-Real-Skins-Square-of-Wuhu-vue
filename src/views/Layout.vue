@@ -53,51 +53,63 @@
 
     <el-container>
       <el-header>
-        <div>
-          <span>
+        <el-row :gutter="20">
+          <el-col :span="6">
             <img
               src="@/image/1646722035560-image.png"
               width="100"
               height="50"
               style="margin-left: 10%; margin-top: 0.3%"
             />
-          </span>
-          <span style="margin-left: 10%; font-style: italic; font-size: 40px">
+          </el-col>
+          <el-col :span="9" style="font-style: italic; font-size: 40px">
             芜湖真皮广场
-          </span>
-          <span>
+          </el-col>
+          <el-col :span="6">
             <img
               src="@/image/1646723521163-image.png"
               width="100"
               height="50"
               style="margin-left: 10%; margin-top: 0.3%"
             />
-          </span>
-        </div>
-        <div class="toolbar">
-          <el-dropdown>
-            <el-icon style="margin-right: 8px; margin-top: 1px"
-              ><setting
-            /></el-icon>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item
-                  ><el-link
-                    type="primary"
-                    href="https://github.com/noonexie/The-Real-Skins-Square-of-Wuhu-vue"
-                    target="_blank"
-                    underline
-                    >仓库地址</el-link
-                  ></el-dropdown-item
-                >
-                <el-dropdown-item
-                  ><router-link to="/">好活当赏</router-link></el-dropdown-item
-                >
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-          <span><router-link to="/">主页</router-link></span>
-        </div>
+          </el-col>
+          <el-col :span="3">
+            <div class="toolbar">
+              <el-avatar
+                shape="square"
+                :size="50"
+                :src="'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'"
+              />
+              <el-dropdown @command="handleCommand">
+                <el-button type="primary">
+                  设置
+                  <el-icon>
+                    <setting />
+                  </el-icon>
+                </el-button>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item>
+                      <el-link
+                        type="primary"
+                        href="https://github.com/noonexie/The-Real-Skins-Square-of-Wuhu-vue"
+                        target="_blank"
+                        underline
+                        >仓库地址
+                      </el-link>
+                    </el-dropdown-item>
+
+                    <el-dropdown-item command="a" style="color: cadetblue">
+                      好活当赏
+                    </el-dropdown-item>
+                    <el-dropdown-item command="b"> 个人信息 </el-dropdown-item>
+                    <el-dropdown-item command="c"> 退出登录 </el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
+            </div>
+          </el-col>
+        </el-row>
       </el-header>
 
       <el-main>
@@ -114,6 +126,7 @@
 </template>
 
 <script lang="ts" setup>
+import VueRouter from "@/main";
 import {
   VideoCamera,
   Collection,
@@ -122,6 +135,21 @@ import {
   Guide,
   Bicycle,
 } from "@element-plus/icons-vue";
+
+const handleCommand = (command: string | number | object) => {
+  if (command == "a") {
+    VueRouter.push("/home");
+  }
+
+  if (command == "b") {
+    VueRouter.push("/user");
+  }
+
+  if (command == "c") {
+    localStorage.removeItem("user");
+    VueRouter.push("/login");
+  }
+};
 </script>
 
 <style scoped>
