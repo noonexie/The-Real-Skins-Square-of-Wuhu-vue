@@ -24,29 +24,44 @@
     </el-form-item>
 
     <el-form-item>
-      <el-button type="primary" @click="submitForm"> 修改 </el-button>
+      <el-popconfirm
+        confirm-button-text="确定"
+        cancel-button-text="取消"
+        title="确认提交吗？"
+        @confirm="submitForm"
+      >
+        <!-- ts无法使用this.$refs.ref,ref操作可以通过方法传到bom层 -->
+        <template #reference>
+          <el-button type="primary">修改</el-button></template
+        >
+      </el-popconfirm>
     </el-form-item>
   </el-form>
 </template>
 
 <script setup lang="ts">
-import { onActivated, reactive } from "vue";
+import { onActivated, reactive, ref } from "vue";
 import { ElMessage, FormInstance, UploadProps } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
-import { getUserById } from "@/api/skins";
+import { getUserById, putUserInfo } from "@/api/skins";
 
 const userData = reactive({
+  id: 0,
   username: "",
   nickname: "",
   password: "",
   avatar: "",
 });
 
-onActivated(async () => {
+onActivated(() => {
+  getUserInfo();
+});
+
+const getUserInfo = async () => {
   const userInfo = localStorage.getItem("user");
   if (userInfo) {
-    let id = JSON.parse(userInfo).data;
-    const res = await getUserById(id);
+    userData.id = JSON.parse(userInfo).data;
+    const res = await getUserById(userData.id);
     // console.log(res.data.data.username);
     userData.username = res.data.data.username;
     userData.nickname = res.data.data.nickname;
@@ -61,7 +76,7 @@ onActivated(async () => {
       type: "error",
     });
   }
-});
+};
 
 // 上传成功的图片
 const handleAvatarSuccess: UploadProps["onSuccess"] = (response) => {
@@ -69,7 +84,16 @@ const handleAvatarSuccess: UploadProps["onSuccess"] = (response) => {
   // console.log(arrayImg);
 };
 
-const submitForm = () => {};
+const submitForm = async () => {
+  const res = await putUserInfo(userData);
+  // console.log(res);
+  if (res.data.code == 0) {
+    ElMessage({
+      message: "修改成功",
+      type: "success",
+    });
+  }
+};
 </script>
 
 <style scoped>

@@ -68,15 +68,31 @@
             type="text"
             size="small"
             @click="changeLikes(1, scope.row.id)"
-            >点赞
+          >
+            点赞
           </el-button>
 
           <el-button
             type="text"
             size="small"
             @click="changeLikes(0, scope.row.id)"
-            >点踩
+          >
+            点踩
           </el-button>
+
+          <el-upload
+            class="upload-demo"
+            action="/api/share/imgUpload/"
+            :limit="1"
+            :on-success="
+              (response: any) => {
+                return addImg(response, scope.row.id);
+              }
+            "
+            :on-exceed="handleExceed"
+          >
+            <el-button type="text" size="small">添加图片</el-button>
+          </el-upload>
         </template>
       </el-table-column>
     </el-table>
@@ -97,8 +113,11 @@
 </template>
 
 <script setup lang="ts">
-import { onActivated, onMounted, reactive } from "vue";
-import { getAllShare, getShareById, putLikes } from "@/api/skins";
+import { onActivated, onMounted, reactive, ref } from "vue";
+import { ElMessage, UploadFile, UploadProps, UploadFiles } from "element-plus";
+import { getAllShare, getShareById, putShare } from "@/api/skins";
+
+const newImgUrl = ref("");
 
 //定义数据结构
 interface IState {
@@ -145,14 +164,37 @@ const changeLikes = async (changeType: number, id_h: number) => {
   const data = await getShareById(id_h);
 
   if (changeType == 1) {
-    putLikes({ id: id_h, likes: data.data.data.likes + 1 });
+    putShare({ id: id_h, likes: data.data.data.likes + 1 });
   }
 
   if (changeType == 0) {
-    putLikes({ id: id_h, likes: data.data.data.likes - 1 });
+    putShare({ id: id_h, likes: data.data.data.likes - 1 });
   }
 
   getListData();
+};
+
+// 上传成功的图片
+const addImg = async (response: any, id_r: number) => {
+  const data = await getShareById(id_r);
+  newImgUrl.value = data.data.data.imgUrl + "," + response.data;
+  // console.log(newImgUrl.value);
+  if (newImgUrl.value[0] == ",") {
+    newImgUrl.value = newImgUrl.value.substring(1, newImgUrl.value.length);
+  }
+  const res = await putShare({ id: id_r, imgUrl: newImgUrl.value });
+  // console.log(res);
+  if (res.data.code == 0) {
+    ElMessage({
+      message: "添加成功",
+      type: "success",
+    });
+  }
+  getListData();
+};
+
+const handleExceed: UploadProps["onExceed"] = () => {
+  ElMessage.warning(`一次只能添加一张图片,请刷新重传`);
 };
 
 const getListData = async () => {

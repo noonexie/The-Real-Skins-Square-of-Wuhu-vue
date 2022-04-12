@@ -44,6 +44,22 @@ export const getUserById = (id: number) => {
   });
 };
 
+/**
+ * 用户信息修改
+ */
+export const putUserInfo = (data: {
+  id: number;
+  password: string;
+  nickname: string;
+  avatar: string;
+}) => {
+  return http({
+    method: "put",
+    url: `/user`,
+    data,
+  });
+};
+
 // 真皮广场 用户分享--------------------------------------------------------------------------------------------------------------------------------
 /**
  * 按ID查询
@@ -95,7 +111,7 @@ export const postShare = (data: {
 /**
  * 数据修改接口
  */
-export const putLikes = (data: any) => {
+export const putShare = (data: any) => {
   return http({
     method: "put",
     url: `/share`,

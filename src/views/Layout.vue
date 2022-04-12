@@ -75,11 +75,7 @@
           </el-col>
           <el-col :span="3">
             <div class="toolbar">
-              <el-avatar
-                shape="square"
-                :size="50"
-                :src="'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'"
-              />
+              <el-avatar shape="square" :size="50" :src="avatarSrc" />
               <el-dropdown @command="handleCommand">
                 <el-button type="primary">
                   设置
@@ -126,6 +122,7 @@
 </template>
 
 <script lang="ts" setup>
+import { getUserById } from "@/api/skins";
 import VueRouter from "@/main";
 import {
   VideoCamera,
@@ -135,6 +132,26 @@ import {
   Guide,
   Bicycle,
 } from "@element-plus/icons-vue";
+import { onActivated, reactive, ref } from "vue";
+
+const avatarSrc = ref("");
+
+onActivated(() => {
+  getAvatar();
+});
+
+const getAvatar = async () => {
+  const userInfo = localStorage.getItem("user");
+  if (userInfo) {
+    const id = JSON.parse(userInfo).data;
+    const res = await getUserById(id);
+    // console.log(res.data.data.username);
+    avatarSrc.value =
+      res.data.data.avatar == null
+        ? "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"
+        : res.data.data.avatar;
+  }
+};
 
 const handleCommand = (command: string | number | object) => {
   if (command == "a") {

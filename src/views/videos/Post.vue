@@ -153,15 +153,15 @@ const submitForm = async (
   uploadEL: any | undefined
 ) => {
   if (!formEl) return;
-  await formEl.validate(async (valid: any, fields: any) => {
+  await formEl.validate(async (valid: any) => {
     if (valid) {
       for (let index = 0; index < arrayImg.length; index++) {
         const element = arrayImg[index];
-        ruleForm.imgUrl += element + ",";
+        ruleForm.imgUrl += "," + element;
       }
       ruleForm.imgUrl =
-        ruleForm.imgUrl.substring(ruleForm.imgUrl.length - 1) == ","
-          ? ruleForm.imgUrl.substring(0, ruleForm.imgUrl.length - 1)
+        ruleForm.imgUrl[0] == ","
+          ? ruleForm.imgUrl.substring(1, ruleForm.imgUrl.length)
           : ruleForm.imgUrl;
       // console.log(ruleForm.imgUrl);
 
