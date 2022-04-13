@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <p>影视列表</p>
+      <p>图书列表</p>
       <el-input
         v-model="state.search"
         style="width: 30%"
@@ -113,11 +113,9 @@
 </template>
 
 <script setup lang="ts">
-import { onActivated, onMounted, reactive, ref } from "vue";
-import { ElMessage, UploadFile, UploadProps, UploadFiles } from "element-plus";
-import { getAllShare, getShareById, putShare } from "@/api/skins";
-
-const newImgUrl = ref("");
+import { onActivated, reactive } from "vue";
+import { ElMessage, UploadProps } from "element-plus";
+import { getAllShare, putImg, putLikes } from "@/api/skins";
 
 //定义数据结构
 interface IState {
@@ -160,29 +158,15 @@ onActivated(() => {
   getListData();
 });
 
-const changeLikes = async (changeType: number, id_h: number) => {
-  const data = await getShareById(id_h);
-
-  if (changeType == 1) {
-    putShare({ id: id_h, likes: data.data.data.likes + 1 });
-  }
-
-  if (changeType == 0) {
-    putShare({ id: id_h, likes: data.data.data.likes - 1 });
-  }
-
+const changeLikes = (changeType: number, id_h: number) => {
+  putLikes({ id: id_h, type: changeType });
   getListData();
 };
 
 // 上传成功的图片
 const addImg = async (response: any, id_r: number) => {
-  const data = await getShareById(id_r);
-  newImgUrl.value = data.data.data.imgUrl + "," + response.data;
-  // console.log(newImgUrl.value);
-  if (newImgUrl.value[0] == ",") {
-    newImgUrl.value = newImgUrl.value.substring(1, newImgUrl.value.length);
-  }
-  const res = await putShare({ id: id_r, imgUrl: newImgUrl.value });
+  const res = await putImg({ id: id_r, url: response.data });
+  // console.log(response);
   // console.log(res);
   if (res.data.code == 0) {
     ElMessage({
@@ -194,7 +178,8 @@ const addImg = async (response: any, id_r: number) => {
 };
 
 const handleExceed: UploadProps["onExceed"] = () => {
-  ElMessage.warning(`一次只能添加一张图片,请刷新重传`);
+  ElMessage.warning(`一次只能添加一张图片
+  请清除页面上传记录后再次提交`);
 };
 
 const getListData = async () => {
@@ -202,7 +187,7 @@ const getListData = async () => {
     const data = await getAllShare({
       pageNum: state.pageParams.pageNum,
       pageSize: state.pageParams.pageSize,
-      type: "video",
+      type: "book",
       search: state.search,
     });
     if (data) {

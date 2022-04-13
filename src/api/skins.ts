@@ -1,4 +1,4 @@
-import http from "@/utils/http";
+import http from "@/utils/axios";
 
 // 真皮广场 用户登录--------------------------------------------------------------------------------------------------------------------------------
 /**
@@ -109,12 +109,23 @@ export const postShare = (data: {
 };
 
 /**
- * 数据修改接口
+ * 点赞修改接口
  */
-export const putShare = (data: any) => {
+export const putLikes = (params: { id: number; type: number }) => {
   return http({
     method: "put",
-    url: `/share`,
-    data,
+    url: `/share/uLikes`,
+    params,
+  });
+};
+
+/**
+ * 图片修改接口
+ */
+export const putImg = (params: { id: number; url: string }) => {
+  return http({
+    method: "put",
+    url: `/share/uImgUrl`,
+    params,
   });
 };

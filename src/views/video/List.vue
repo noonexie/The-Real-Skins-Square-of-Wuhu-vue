@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <p>书籍列表</p>
+      <p>影视列表</p>
       <el-input
         v-model="state.search"
         style="width: 30%"
@@ -68,15 +68,31 @@
             type="text"
             size="small"
             @click="changeLikes(1, scope.row.id)"
-            >点赞
+          >
+            点赞
           </el-button>
 
           <el-button
             type="text"
             size="small"
             @click="changeLikes(0, scope.row.id)"
-            >点踩
+          >
+            点踩
           </el-button>
+
+          <el-upload
+            class="upload-demo"
+            action="/api/share/imgUpload/"
+            :limit="1"
+            :on-success="
+              (response: any) => {
+                return addImg(response, scope.row.id);
+              }
+            "
+            :on-exceed="handleExceed"
+          >
+            <el-button type="text" size="small">添加图片</el-button>
+          </el-upload>
         </template>
       </el-table-column>
     </el-table>
@@ -97,8 +113,9 @@
 </template>
 
 <script setup lang="ts">
-import { onActivated, onMounted, reactive } from "vue";
-import { getAllShare, getShareById, putLikes } from "@/api/skins";
+import { onActivated, reactive } from "vue";
+import { ElMessage, UploadProps } from "element-plus";
+import { getAllShare, putImg, putLikes } from "@/api/skins";
 
 //定义数据结构
 interface IState {
@@ -141,18 +158,28 @@ onActivated(() => {
   getListData();
 });
 
-const changeLikes = async (changeType: number, id_h: number) => {
-  const data = await getShareById(id_h);
-
-  if (changeType == 1) {
-    putLikes({ id: id_h, likes: data.data.data.likes + 1 });
-  }
-
-  if (changeType == 0) {
-    putLikes({ id: id_h, likes: data.data.data.likes - 1 });
-  }
-
+const changeLikes = (changeType: number, id_h: number) => {
+  putLikes({ id: id_h, type: changeType });
   getListData();
+};
+
+// 上传成功的图片
+const addImg = async (response: any, id_r: number) => {
+  const res = await putImg({ id: id_r, url: response.data });
+  // console.log(response);
+  // console.log(res);
+  if (res.data.code == 0) {
+    ElMessage({
+      message: "添加成功",
+      type: "success",
+    });
+  }
+  getListData();
+};
+
+const handleExceed: UploadProps["onExceed"] = () => {
+  ElMessage.warning(`一次只能添加一张图片
+  请清除页面上传记录后再次提交`);
 };
 
 const getListData = async () => {
@@ -160,7 +187,7 @@ const getListData = async () => {
     const data = await getAllShare({
       pageNum: state.pageParams.pageNum,
       pageSize: state.pageParams.pageSize,
-      type: "book",
+      type: "video",
       search: state.search,
     });
     if (data) {

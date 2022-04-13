@@ -62,22 +62,22 @@ const VueRouter = createRouter({
         {
           path: "books/list",
           name: "BList",
-          component: () => import("./views/books/List.vue"),
+          component: () => import("./views/book/List.vue"),
         },
         {
           path: "books/put",
           name: "BPut",
-          component: () => import("./views/books/Post.vue"),
+          component: () => import("./views/book/Post.vue"),
         },
         {
           path: "videos/list",
           name: "VList",
-          component: () => import("./views/videos/List.vue"),
+          component: () => import("./views/video/List.vue"),
         },
         {
           path: "videos/put",
           name: "VPut",
-          component: () => import("./views/videos/Post.vue"),
+          component: () => import("./views/video/Post.vue"),
         },
         {
           path: "journey/list",

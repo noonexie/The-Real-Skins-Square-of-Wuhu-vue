@@ -48,14 +48,13 @@ instance.interceptors.request.use(
   }
 );
 
-//路由拦截器
-// 任何路由之前都会执行
-// VueRouter.beforeEach((to, from, next) => {
-//   // 判断该路由是否需要登录权限
-//   if (!sessionStorage.getItem("user")) {
-//     // 通过vuex sessionStorage里面缓存的用户信息是否存在
-//     VueRouter.push("/login");
-//   }
-// });
+instance.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export default instance;
