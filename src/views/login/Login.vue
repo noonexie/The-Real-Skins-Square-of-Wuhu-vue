@@ -15,7 +15,7 @@
         <el-form :model="userForm" :rules="rules" ref="ruleFormRef">
           <el-form-item prop="username">
             <el-input
-              placeholder="请输入用户名，英文或数字"
+              placeholder="请输入账号"
               :prefix-icon="User"
               v-model="userForm.username"
             />
@@ -60,7 +60,7 @@ const userForm = reactive({
   password: "",
 });
 const rules = reactive({
-  username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+  username: [{ required: true, message: "请输入账号", trigger: "blur" }],
   password: [{ required: true, message: "请输入密码", trigger: "blur" }],
 });
 

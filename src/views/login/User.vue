@@ -1,7 +1,7 @@
 <template>
   <p></p>
   <el-form label-width="100px" :model="userData" style="max-width: 460px">
-    <el-form-item label="用户名">
+    <el-form-item label="用户账号">
       <el-input v-model="userData.username" disabled />
     </el-form-item>
     <el-form-item label="用户昵称">
