@@ -5,7 +5,7 @@ import axios from "axios";
  * @see https://github.com/axios/axios#request-config
  */
 const configMT = {
-  // baseURL: "wuhuback.vip.frp.wlphp.com:88",//app
+  // baseURL: "http://36.133.29.83:9090", //app
   baseURL: "/api", //web
   // baseURL: process.env.VUE_APP_ENV === 'development' ? process.env.VUE_APP_API_HOST : '',
   timeout: 60000,
@@ -14,6 +14,14 @@ const configMT = {
   //   "X-Requested-With": "XMLHttpRequest",
   // },
 };
+
+export class player {
+  static getSongSheet(server: string, type: String, id: String) {
+    return axios.get(
+      `https://api.i-meto.com/meting/api?server=${server}&type=${type}&id=${id}&r=${Math.random()}`
+    );
+  }
+}
 
 const instance = axios.create(configMT);
 

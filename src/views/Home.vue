@@ -4,13 +4,13 @@
     <h1>支持我们</h1>
     <span>
       <img
-        src="../image/pay/wechat.png"
+        src="@/static/image/pay/wechat.png"
         align="middle"
         width="400"
         height="400"
       />微信打赏
       <img
-        src="../image/pay/alipay.jpg"
+        src="@/static/image/pay/alipay.jpg"
         align="middle"
         width="400"
         height="600"

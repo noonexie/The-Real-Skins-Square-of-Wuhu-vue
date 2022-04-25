@@ -9,43 +9,23 @@
         <el-menu
           :default-active="$route.path"
           active-text-color="#8cc5ff"
-          :default-openeds="['1', '2', '3', '4', '5']"
+          :default-openeds="['1', '2']"
           router
         >
           <el-sub-menu index="1">
             <template #title>
-              <el-icon><Reading /></el-icon>应试教育
+              <el-icon><Share /></el-icon>我爱分享
             </template>
-            <el-menu-item index="/education/list">排名</el-menu-item>
-            <el-menu-item index="/education/put">推荐</el-menu-item>
+            <el-menu-item index="/share/list">我看分享</el-menu-item>
+            <el-menu-item index="/share/put">我要分享</el-menu-item>
           </el-sub-menu>
+
           <el-sub-menu index="2">
             <template #title>
-              <el-icon><Guide /></el-icon>毕业找我
+              <el-icon><MostlyCloudy /></el-icon>云影音空间
             </template>
-            <el-menu-item index="/graduation/list">排名</el-menu-item>
-            <el-menu-item index="/graduation/put">推荐</el-menu-item>
-          </el-sub-menu>
-          <el-sub-menu index="3">
-            <template #title>
-              <el-icon><Collection /></el-icon>书友计划
-            </template>
-            <el-menu-item index="/books/list">排名</el-menu-item>
-            <el-menu-item index="/books/put">推荐</el-menu-item>
-          </el-sub-menu>
-          <el-sub-menu index="4">
-            <template #title>
-              <el-icon><VideoCamera /></el-icon>影视经典
-            </template>
-            <el-menu-item index="/videos/list">排名</el-menu-item>
-            <el-menu-item index="/videos/put">推荐</el-menu-item>
-          </el-sub-menu>
-          <el-sub-menu index="5">
-            <template #title>
-              <el-icon><Bicycle /></el-icon>驴友之家
-            </template>
-            <el-menu-item index="/journey/list">排名</el-menu-item>
-            <el-menu-item index="/journey/put">推荐</el-menu-item>
+            <el-menu-item index="/player/ktv">云KTV</el-menu-item>
+            <el-menu-item index="/player/cinema">云电影院</el-menu-item>
           </el-sub-menu>
         </el-menu>
       </el-scrollbar>
@@ -56,7 +36,7 @@
         <el-row :gutter="20">
           <el-col :span="6">
             <img
-              src="@/image/1646722035560-image.png"
+              src="@/static/image/skin.png"
               width="100"
               height="50"
               style="margin-left: 10%; margin-top: 0.3%"
@@ -67,7 +47,7 @@
           </el-col>
           <el-col :span="6">
             <img
-              src="@/image/1646723521163-image.png"
+              src="@/static/image/happy.png"
               width="100"
               height="50"
               style="margin-left: 10%; margin-top: 0.3%"
@@ -124,14 +104,7 @@
 <script lang="ts" setup>
 import { getUserById } from "@/api/skins";
 import VueRouter from "@/main";
-import {
-  VideoCamera,
-  Collection,
-  Reading,
-  Setting,
-  Guide,
-  Bicycle,
-} from "@element-plus/icons-vue";
+import { Share, Setting, MostlyCloudy } from "@element-plus/icons-vue";
 import { onActivated, reactive, ref } from "vue";
 
 const avatarSrc = ref("");

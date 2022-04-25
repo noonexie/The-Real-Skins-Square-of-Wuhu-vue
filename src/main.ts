@@ -5,6 +5,12 @@ import "element-plus/dist/index.css";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import App from "./App.vue";
 import axios from "axios";
+import vue3videoPlay from "vue3-video-play"; // 引入组件
+import "vue3-video-play/dist/style.css"; // 引入css
+// import vueAplayer from "vue-aplayer";
+// import "APlayer/dist/APlayer.min.css";
+// import APlayer from "APlayer";
+import APlayer from "@moefe/vue-aplayer";
 
 /**
  * 这里面的路由都作用在App.vue里面的<router-view>标签，如果App.vue里面写了侧边栏，登录页面也会嵌在带有侧边栏页面的主体里
@@ -32,62 +38,32 @@ const VueRouter = createRouter({
         {
           path: "/home",
           name: "Home",
-          component: () => import("./views/Home.vue"),
+          component: () => import("@/views/Home.vue"),
         },
         {
           path: "/user",
           name: "User",
-          component: () => import("./views/login/User.vue"),
+          component: () => import("@/views/login/User.vue"),
         },
         {
-          path: "education/list",
-          name: "EList",
-          component: () => import("./views/education/List.vue"),
+          path: "share/list",
+          name: "SList",
+          component: () => import("@/views/share/List.vue"),
         },
         {
-          path: "education/put",
-          name: "EPut",
-          component: () => import("./views/education/Post.vue"),
+          path: "share/put",
+          name: "SPut",
+          component: () => import("@/views/share/Post.vue"),
         },
         {
-          path: "graduation/list",
-          name: "GList",
-          component: () => import("./views/graduation/List.vue"),
+          path: "player/ktv",
+          name: "KTV",
+          component: () => import("@/views/player/KTV.vue"),
         },
         {
-          path: "graduation/put",
-          name: "GPut",
-          component: () => import("./views/graduation/Post.vue"),
-        },
-        {
-          path: "books/list",
-          name: "BList",
-          component: () => import("./views/book/List.vue"),
-        },
-        {
-          path: "books/put",
-          name: "BPut",
-          component: () => import("./views/book/Post.vue"),
-        },
-        {
-          path: "videos/list",
-          name: "VList",
-          component: () => import("./views/video/List.vue"),
-        },
-        {
-          path: "videos/put",
-          name: "VPut",
-          component: () => import("./views/video/Post.vue"),
-        },
-        {
-          path: "journey/list",
-          name: "JList",
-          component: () => import("./views/journey/List.vue"),
-        },
-        {
-          path: "journey/put",
-          name: "JPut",
-          component: () => import("./views/journey/Post.vue"),
+          path: "player/cinema",
+          name: "Cinema",
+          component: () => import("@/views/player/Cinema.vue"),
         },
       ],
     },
@@ -116,7 +92,7 @@ app.use(
   },
   axios
 );
-app.use(VueRouter);
+app.use(VueRouter, vue3videoPlay);
 app.mount("#app");
 
 //export default后，别的文件通过import就可以使用
