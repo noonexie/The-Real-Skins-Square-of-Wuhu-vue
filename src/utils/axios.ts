@@ -15,14 +15,6 @@ const configMT = {
   // },
 };
 
-export class player {
-  static getSongSheet(server: string, type: String, id: String) {
-    return axios.get(
-      `https://api.i-meto.com/meting/api?server=${server}&type=${type}&id=${id}&r=${Math.random()}`
-    );
-  }
-}
-
 const instance = axios.create(configMT);
 
 // 请求白名单，如果请求在白名单里面，将不会被拦截校验权限
