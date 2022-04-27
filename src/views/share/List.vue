@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <p>应试列表</p>
+      <p>分享列表</p>
       <el-input
         v-model="state.search"
         style="width: 30%"
@@ -30,7 +30,7 @@
       <el-table-column
         prop="dataUrl"
         label="链接"
-        width="140"
+        width="200"
         slot-scope="scope"
       >
         <template #default="scope">
@@ -39,14 +39,15 @@
             :href="scope.row.dataUrl"
             target="_blank"
             underline
-            >前往观看
+          >
+            {{ scope.row.urlTitle }}
           </el-link>
         </template>
       </el-table-column>
 
       <el-table-column prop="dataText" label="上榜理由"> </el-table-column>
 
-      <el-table-column prop="likes" label="点赞数" width="140" sortable>
+      <el-table-column prop="likes" label="点赞数" width="100" sortable>
       </el-table-column>
 
       <el-table-column label="图片" width="140">
@@ -118,7 +119,7 @@
 <script setup lang="ts">
 import { onActivated, reactive } from "vue";
 import { ElMessage, UploadProps } from "element-plus";
-import { getAllShare, putImg, putLikes } from "../../api/skins";
+import { getAllShare, putImg, putLikes, getTitle } from "@/api/skins";
 
 //定义数据结构
 interface IState {
@@ -136,6 +137,7 @@ interface IState {
     dataText: string; // 数据上榜理由
     imgUrl: string; // 图片地址字符串集
     likes: number; // 点赞数
+    urlTitle: string; //网址标题
   }[];
   // dataImage: string[][]; //图片地址字符串数组//弃用改为scope方式
   strSplit: string;
@@ -203,6 +205,9 @@ const getListData = async () => {
         if (element.dataType == "game") element.dataType = "游戏";
         if (element.dataType == "graduation") element.dataType = "毕业";
         if (element.dataType == "education") element.dataType = "教育";
+        const titleResp = await getTitle({ dataUrl: element.dataUrl });
+        element.urlTitle =
+          titleResp.data.data == "" ? "前往观看" : titleResp.data.data;
       }
       // console.log(state.tableData);
       state.pageParams.total = data.data.data.total;

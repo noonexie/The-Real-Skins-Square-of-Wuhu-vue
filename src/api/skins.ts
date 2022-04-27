@@ -128,3 +128,14 @@ export const putImg = (params: { id: number; url: string }) => {
     params,
   });
 };
+
+/**
+ * 根据url解析title
+ */
+export const getTitle = (params: { dataUrl: string }) => {
+  return http({
+    method: "get",
+    url: `/share/urlParse`,
+    params,
+  });
+};
