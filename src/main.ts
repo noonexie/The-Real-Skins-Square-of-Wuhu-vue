@@ -71,18 +71,18 @@ const VueRouter = createRouter({
 });
 
 // ---------------------- 路由拦截 方法 -----------------------------------//
-VueRouter.beforeEach((to, from, next) => {
-  // document.title = `${to.meta.title} | vue-manage-system`; //可以设置网站头部
-  const role = localStorage.getItem("user");
-  if (!role && to.path !== "/login" && to.path !== "/register") {
-    next("/login");
-  } else {
-    if (role && to.path === "/login") {
-      next("/home");
-    }
-    next();
-  }
-});
+// VueRouter.beforeEach((to, from, next) => {
+//   // document.title = `${to.meta.title} | vue-manage-system`; //可以设置网站头部
+//   const role = localStorage.getItem("user");
+//   if (!role && to.path !== "/login" && to.path !== "/register") {
+//     next("/login");
+//   } else {
+//     if (role && to.path === "/login") {
+//       next("/home");
+//     }
+//     next();
+//   }
+// });
 
 const app = createApp(App);
 app.use(

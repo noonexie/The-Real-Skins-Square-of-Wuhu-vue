@@ -6,7 +6,7 @@ import axios from "axios";
  */
 const configMT = {
   // baseURL: "http://36.133.29.83:9090", //app
-  baseURL: "/api", //web
+  baseURL: "http://172.18.96.1:9090", //web
   // baseURL: process.env.VUE_APP_ENV === 'development' ? process.env.VUE_APP_API_HOST : '',
   timeout: 60000,
   // withCredentials: true, // 跨域请求携带Cookie
@@ -25,28 +25,28 @@ const whiteUrls = ["/user/login", "/user/register"];
 // 任何请求都会先经过该拦截器的处理
 // 可以自请求发送前对请求做一些处理
 // 比如统一加token，对请求参数统一加密
-instance.interceptors.request.use(
-  (config: any) => {
-    config.headers["Content-Type"] = "application/json;charset=utf-8";
+// instance.interceptors.request.use(
+//   (config: any) => {
+//     config.headers["Content-Type"] = "application/json;charset=utf-8";
 
-    // 取出sessionStorage里面缓存的用户信息
-    // let userJson = sessionStorage.getItem("user"); //sessionStorage存在浏览器内存，浏览器一关就没了
-    let userJson = localStorage.getItem("user"); //localStorage存在用户本地，不清楚浏览器本地缓存一直都在？
-    if (!whiteUrls.includes(config.url)) {
-      // 校验请求白名单
-      if (!userJson) {
-        VueRouter.push("/login");
-      } else {
-        let user = JSON.parse(userJson);
-        config.headers["token"] = user.token; // 设置请求头
-      }
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+//     // 取出sessionStorage里面缓存的用户信息
+//     // let userJson = sessionStorage.getItem("user"); //sessionStorage存在浏览器内存，浏览器一关就没了
+//     let userJson = localStorage.getItem("user"); //localStorage存在用户本地，不清楚浏览器本地缓存一直都在？
+//     if (!whiteUrls.includes(config.url)) {
+//       // 校验请求白名单
+//       if (!userJson) {
+//         VueRouter.push("/login");
+//       } else {
+//         let user = JSON.parse(userJson);
+//         config.headers["token"] = user.token; // 设置请求头
+//       }
+//     }
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
 instance.interceptors.request.use(
   (config) => {

@@ -1,10 +1,16 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
+import electron from "vite-plugin-electron";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    electron({
+      entry: "electron/index.ts",
+    }),
+  ],
   base: "./",
   // 配置文件别名 vite1.0 是 /@/  2.0改为/@
   //这里是将src目录配置别名为/@方便在项目中导入src目录下的文件
