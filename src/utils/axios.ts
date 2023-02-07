@@ -6,7 +6,7 @@ import axios from "axios";
  */
 const configMT = {
   // baseURL: "http://36.133.29.83:9090", //app
-  baseURL: "http://172.18.96.1:9090", //web
+  baseURL: "/api", //web
   // baseURL: process.env.VUE_APP_ENV === 'development' ? process.env.VUE_APP_API_HOST : '',
   timeout: 60000,
   // withCredentials: true, // 跨域请求携带Cookie

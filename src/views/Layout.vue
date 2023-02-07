@@ -20,7 +20,7 @@
               <el-dropdown-item>
                 <el-link
                   type="primary"
-                  href="https://github.com/noonexie/The-Real-Skins-Square-of-Wuhu-vue"
+                  href="https://cupfox.app/s/%E7%99%BE%E5%BA%A6"
                   target="_blank"
                   underline
                   >仓库地址
@@ -52,18 +52,26 @@
   >
     <el-sub-menu index="1">
       <template #title>
-        <el-icon><Share /></el-icon>我爱分享
+        <el-icon><Guide /></el-icon>广场中心
       </template>
-      <el-menu-item index="/share/list">我看分享</el-menu-item>
-      <el-menu-item index="/share/put">我要分享</el-menu-item>
+      <el-menu-item index="/share/list">琳琅满目</el-menu-item>
+      <el-menu-item index="/share/put">推荐共享</el-menu-item>
     </el-sub-menu>
-    <el-sub-menu index="2">
+    <el-menu-item index="/player/movie">
       <template #title>
-        <el-icon><MostlyCloudy /></el-icon>云影音
+        <el-icon><Film /></el-icon>影视厅
       </template>
-      <el-menu-item index="/player/ktv">云KTV</el-menu-item>
-      <el-menu-item index="/player/cinema">云影院</el-menu-item>
-    </el-sub-menu>
+    </el-menu-item>
+    <el-menu-item index="/player/music">
+      <template #title>
+        <el-icon><Headset /></el-icon>音乐馆
+      </template>
+    </el-menu-item>
+    <el-menu-item index="/player/chat">
+      <template #title>
+        <el-icon><ChatDotRound /></el-icon>聊天室
+      </template>
+    </el-menu-item>
   </el-menu>
   <!-- </el-header> -->
 
@@ -81,7 +89,13 @@
 <script lang="ts" setup>
 import { getUserById } from "@/api/skins";
 import VueRouter from "@/main";
-import { Share, ArrowDownBold, MostlyCloudy } from "@element-plus/icons-vue";
+import {
+  Guide,
+  ArrowDownBold,
+  Film,
+  Headset,
+  ChatDotRound,
+} from "@element-plus/icons-vue";
 import { onActivated, ref } from "vue";
 
 const avatarSrc = ref("");
