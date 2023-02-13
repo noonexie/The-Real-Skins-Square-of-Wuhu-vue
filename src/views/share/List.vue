@@ -165,6 +165,7 @@ onActivated(() => {
 
 const changeLikes = (changeType: number, id_h: number) => {
   putLikes({ id: id_h, type: changeType });
+  // state.tableData[id_h].likes++;
   getListData();
 };
 

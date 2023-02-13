@@ -139,3 +139,22 @@ export const getTitle = (params: { dataUrl: string }) => {
     params,
   });
 };
+
+/**
+ * 茶杯狐电影搜索
+ */
+export const searchMovie = (params: {
+  // 不加params：get的参数传不进去，即不会/share?num=X&size=X&这样请求
+  text: string;
+  type: number;
+  from: number;
+  size: number;
+  douban_id: number;
+  token: string;
+}) => {
+  return http({
+    method: "get",
+    url: `https://api.cupfox.app/api/v2/search`,
+    params,
+  });
+};

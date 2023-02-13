@@ -1,18 +1,9 @@
 <template>
-  云KTV敬请期待
-  <p>
-    <audio controls>
-      <source
-        src="@/static/audio/やまだ豊-やわらかな光.mp3"
-        type="audio/mpeg"
-      />
-      <!-- <source src="myAudio.ogg" type="audio/ogg" /> -->
-      <p>
-        Your browser doesn't support HTML5 audio. Here is a
-        <!-- <a href="myAudio.mp4">link to the audio</a> instead. -->
-      </p>
-    </audio>
-  </p>
+  <audio
+    src="C400003mAan70zUy5O.m4a?guid=10000&vkey=63BDBBF0192B04C9986A1207A41703517200853C4BCA1F6CBBA472EF2DDCA4332762EE879B76C6D3FC8208B64CB40F7A374F6156BFC0EB95&uin=&fromtag=3"
+    controls
+    loop
+  ></audio>
 </template>
 
 <script setup lang="ts"></script>

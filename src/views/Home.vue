@@ -6,13 +6,13 @@
       <img
         src="@/static/image/pay/wechat.png"
         align="middle"
-        width="250"
+        width="230"
         height="200"
       />微信打赏
       <img
         src="@/static/image/pay/alipay.jpg"
         align="middle"
-        width="200"
+        width="250"
         height="300"
       />支付宝打赏
     </span>

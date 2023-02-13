@@ -6,6 +6,7 @@ prod
 dist-ssr
 *.local
 yarn.lock
+package-lock.json
 
 # should ignore Talos outputDir
 build
