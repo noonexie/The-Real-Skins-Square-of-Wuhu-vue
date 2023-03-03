@@ -25,11 +25,11 @@ const VueRouter = createRouter({
       name: "Login",
       component: () => import("@/views/login/Login.vue"),
     },
-    {
-      path: "/register",
-      name: "Register",
-      component: () => import("@/views/login/Register.vue"),
-    },
+    // {
+    //   path: "/register",
+    //   name: "Register",
+    //   component: () => import("@/views/login/Register.vue"),
+    // },
     {
       path: "/",
       name: "Layout",
@@ -47,16 +47,16 @@ const VueRouter = createRouter({
           name: "User",
           component: () => import("@/views/login/User.vue"),
         },
-        {
-          path: "share/list",
-          name: "SList",
-          component: () => import("@/views/share/List.vue"),
-        },
-        {
-          path: "share/put",
-          name: "SPut",
-          component: () => import("@/views/share/Post.vue"),
-        },
+        // {
+        //   path: "share/list",
+        //   name: "SList",
+        //   component: () => import("@/views/share/List.vue"),
+        // },
+        // {
+        //   path: "share/put",
+        //   name: "SPut",
+        //   component: () => import("@/views/share/Post.vue"),
+        // },
         {
           path: "player/music",
           name: "Music",
@@ -66,6 +66,11 @@ const VueRouter = createRouter({
           path: "player/movie",
           name: "Movie",
           component: () => import("@/views/player/Movie.vue"),
+        },
+        {
+          path: "player/chat",
+          name: "Chat",
+          component: () => import("@/views/player/Chat.vue"),
         },
       ],
     },

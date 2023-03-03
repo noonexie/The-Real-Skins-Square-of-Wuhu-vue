@@ -90,7 +90,6 @@
 import { getUserById } from "@/api/skins";
 import VueRouter from "@/main";
 import {
-  Guide,
   ArrowDownBold,
   Film,
   Headset,
@@ -98,11 +97,13 @@ import {
 } from "@element-plus/icons-vue";
 import { onActivated, ref } from "vue";
 
-const avatarSrc = ref("");
+const avatarSrc = ref(
+  "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"
+);
 const username = ref("");
 
 onActivated(() => {
-  getAvatar();
+  // getAvatar();
 });
 
 const getAvatar = async () => {

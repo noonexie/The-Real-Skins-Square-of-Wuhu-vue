@@ -214,7 +214,7 @@ const getListData = async () => {
       state.pageParams.total = data.data.data.total;
     }
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 

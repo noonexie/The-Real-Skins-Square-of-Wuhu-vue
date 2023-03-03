@@ -8,7 +8,7 @@
       <el-input v-model="userData.nickname" />
     </el-form-item>
     <el-form-item label="用户密码">
-      <el-input v-model="userData.password" show-password />
+      <el-input v-model="userData.password" show-password disabled />
     </el-form-item>
 
     <el-form-item label="用户头像">
@@ -17,6 +17,7 @@
         action="/api/share/imgUpload"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
+        disabled
       >
         <img v-if="userData.avatar" :src="userData.avatar" class="avatar" />
         <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
@@ -27,12 +28,12 @@
       <el-popconfirm
         confirm-button-text="确定"
         cancel-button-text="取消"
-        title="确认提交吗？"
-        @confirm="submitForm"
+        title="确认以该昵称登录吗？"
+        @confirm="loginForm"
       >
         <!-- ts无法使用this.$refs.ref,ref操作可以通过方法传到bom层 -->
         <template #reference>
-          <el-button type="primary">修改</el-button></template
+          <el-button type="primary">登录</el-button></template
         >
       </el-popconfirm>
     </el-form-item>
@@ -43,7 +44,7 @@
 import { onActivated, reactive, ref } from "vue";
 import { ElMessage, FormInstance, UploadProps } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
-import { getUserById, putUserInfo } from "@/api/skins";
+// import { getUserById, putUserInfo } from "@/api/skins";
 
 const userData = reactive({
   id: 0,
@@ -54,22 +55,13 @@ const userData = reactive({
 });
 
 onActivated(() => {
-  getUserInfo();
+  getUserName();
 });
 
-const getUserInfo = async () => {
+const getUserName = async () => {
   const userInfo = localStorage.getItem("user");
   if (userInfo) {
-    userData.id = JSON.parse(userInfo).data;
-    const res = await getUserById(userData.id);
-    // console.log(res.data.data.username);
-    userData.username = res.data.data.username;
-    userData.nickname = res.data.data.nickname;
-    userData.password = res.data.data.password;
-    userData.avatar =
-      res.data.data.avatar == null
-        ? "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"
-        : res.data.data.avatar;
+    userData.nickname = JSON.parse(userInfo).name;
   } else {
     ElMessage({
       message: "用户未登录",
@@ -78,22 +70,52 @@ const getUserInfo = async () => {
   }
 };
 
+// const getUserInfo = async () => {
+//   const userInfo = localStorage.getItem("user");
+//   if (userInfo) {
+//     userData.id = JSON.parse(userInfo).data;
+//     const res = await getUserById(userData.id);
+//     // console.log(res.data.data.username);
+//     userData.username = res.data.data.username;
+//     userData.nickname = res.data.data.nickname;
+//     userData.password = res.data.data.password;
+//     userData.avatar =
+//       res.data.data.avatar == null
+//         ? "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"
+//         : res.data.data.avatar;
+//   } else {
+//     ElMessage({
+//       message: "用户未登录",
+//       type: "error",
+//     });
+//   }
+// };
+
 // 上传成功的图片
 const handleAvatarSuccess: UploadProps["onSuccess"] = (response) => {
   userData.avatar = response.data;
   // console.log(arrayImg);
 };
 
-const submitForm = async () => {
-  const res = await putUserInfo(userData);
+const loginForm = () => {
+  localStorage.setItem("user", JSON.stringify({ name: userData.nickname }));
   // console.log(res);
-  if (res.data.code == 0) {
-    ElMessage({
-      message: "修改成功",
-      type: "success",
-    });
-  }
+  ElMessage({
+    message: "登录成功，可以前往聊天室",
+    type: "success",
+  });
 };
+
+// const submitForm = async () => {
+//   const res = await putUserInfo(userData);
+//   // console.log(res);
+//   if (res.data.code == 0) {
+//     ElMessage({
+//       message: "修改成功",
+//       type: "success",
+//     });
+//   }
+// };
 </script>
 
 <style scoped>
