@@ -64,7 +64,7 @@ const getUserName = async () => {
     userData.nickname = JSON.parse(userInfo).name;
   } else {
     ElMessage({
-      message: "用户未登录",
+      message: "用户未登录,登录只需输入昵称",
       type: "error",
     });
   }

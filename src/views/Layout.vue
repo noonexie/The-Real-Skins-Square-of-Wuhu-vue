@@ -20,7 +20,7 @@
               <el-dropdown-item>
                 <el-link
                   type="primary"
-                  href="https://cupfox.app/s/%E7%99%BE%E5%BA%A6"
+                  href="https://github.com/noonexie"
                   target="_blank"
                   underline
                   >仓库地址
@@ -88,6 +88,7 @@
 
 <script lang="ts" setup>
 import { getUserById } from "@/api/skins";
+import { ElMessage } from "element-plus";
 import VueRouter from "@/main";
 import {
   ArrowDownBold,
@@ -100,7 +101,7 @@ import { onActivated, ref } from "vue";
 const avatarSrc = ref(
   "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"
 );
-const username = ref("");
+const username = ref("设置");
 
 onActivated(() => {
   // getAvatar();
@@ -131,7 +132,11 @@ const handleCommand = (command: string | number | object) => {
 
   if (command == "c") {
     localStorage.removeItem("user");
-    VueRouter.push("/login");
+    ElMessage({
+      message: "用户已退出",
+      type: "error",
+    });
+    VueRouter.push("/home");
   }
 };
 </script>
