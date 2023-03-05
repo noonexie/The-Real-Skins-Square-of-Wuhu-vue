@@ -3,6 +3,11 @@ node_modules
 dist
 dist-ssr
 *.local
+dist-electron
+release
+
+yarn.lock
+package-lock.json
 
 # should ignore Talos outputDir
 build
