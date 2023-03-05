@@ -39,12 +39,33 @@ export default defineConfig({
     port: 3030, // 端口号
     host: "0.0.0.0",
     proxy: {
-      "/api": {
-        target: "http://localhost:9090", // 后台接口
+      // "/api": {
+      //   target: "http://localhost:9090", // 后台接口
+      //   changeOrigin: true, //是否设置同源，输入是的
+      //   secure: false, // 如果是https接口，需要配置这个参数
+      //   // ws: true, //websocket支持
+      //   rewrite: (path) => path.replace(/^\/api/, ""),
+      // },
+      "/movie": {
+        target: "https://api.cupfox.app", // 后台接口
         changeOrigin: true, //是否设置同源，输入是的
         secure: false, // 如果是https接口，需要配置这个参数
         // ws: true, //websocket支持
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        rewrite: (path) => path.replace(/^\/movie/, ""),
+      },
+      "/music": {
+        target: "https://songsearch.kugou.com", // 后台接口
+        changeOrigin: true, //是否设置同源，输入是的
+        secure: false, // 如果是https接口，需要配置这个参数
+        // ws: true, //websocket支持
+        rewrite: (path) => path.replace(/^\/music/, ""),
+      },
+      "/mp3": {
+        target: "https://wwwapi.kugou.com", // 后台接口
+        changeOrigin: true, //是否设置同源，输入是的
+        secure: false, // 如果是https接口，需要配置这个参数
+        // ws: true, //websocket支持
+        rewrite: (path) => path.replace(/^\/mp3/, ""),
       },
     },
   },

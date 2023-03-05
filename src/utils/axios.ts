@@ -4,8 +4,8 @@ import axios from "axios";
 /**
  * @see https://github.com/axios/axios#request-config
  */
-const configMT = {
-  // baseURL: "http://36.133.29.83:9090", //app
+const config = {
+  // baseURL: "https://api.cupfox.app", //app
   // baseURL: "https://api.cupfox.app", //web
   // baseURL: process.env.VUE_APP_ENV === 'development' ? process.env.VUE_APP_API_HOST : '',
   timeout: 60000,
@@ -15,10 +15,22 @@ const configMT = {
   // },
 };
 
-const instance = axios.create(configMT);
+// const configMusic = {
+//   baseURL: "https://songsearch.kugou.com", //app
+//   // baseURL: "https://api.cupfox.app", //web
+//   // baseURL: process.env.VUE_APP_ENV === 'development' ? process.env.VUE_APP_API_HOST : '',
+//   timeout: 60000,
+//   withCredentials: true, // 跨域请求携带Cookie
+//   headers: {
+//     "X-Requested-With": "XMLHttpRequest",
+//   },
+// };
+
+const instance = axios.create(config);
+// const instanceMusic = axios.create(configMusic);
 
 // 请求白名单，如果请求在白名单里面，将不会被拦截校验权限
-const whiteUrls = ["/user/login", "/user/register"];
+// const whiteUrls = ["/user/login", "/user/register"];
 
 // request 拦截器
 // 统一处理所有http请求和响应
@@ -58,3 +70,4 @@ instance.interceptors.request.use(
 );
 
 export default instance;
+// instanceMusic;

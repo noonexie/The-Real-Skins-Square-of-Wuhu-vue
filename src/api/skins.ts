@@ -154,7 +154,41 @@ export const searchMovie = (params: {
 }) => {
   return http({
     method: "get",
-    url: `https://api.cupfox.app/api/v2/search`,
+    url: `/movie/api/v2/search`,
+    params,
+  });
+};
+
+/**
+ * 酷狗音乐搜索
+ */
+export const searchMusic = (params: {
+  // 不加params：get的参数传不进去，即不会/share?num=X&size=X&这样请求
+  keyword: string;
+  page: number;
+}) => {
+  return http({
+    method: "get",
+    url: `/music/song_search_v2`,
+    params,
+  });
+};
+
+/**
+ * 酷狗音乐mp3 url获取
+ */
+export const getMp3Url = (params: {
+  // 不加params：get的参数传不进去，即不会/share?num=X&size=X&这样请求
+  r: string;
+  callback: string;
+  mid: number;
+  hash: string;
+  platid: number;
+  album_id: number;
+}) => {
+  return http({
+    method: "get",
+    url: `/mp3/yy/index.php`,
     params,
   });
 };
