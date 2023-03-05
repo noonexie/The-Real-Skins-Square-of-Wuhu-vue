@@ -4,76 +4,102 @@ import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import App from "./App.vue";
-import axios from "axios";
+// import axios from "axios";
+import vue3videoPlay from "vue3-video-play"; // 引入组件
+import "vue3-video-play/dist/style.css"; // 引入css
+// import vueAplayer from "vue-aplayer";
+// import "APlayer/dist/APlayer.min.css";
+import APlayer from "APlayer";
+// import APlayer from "@moefe/vue-aplayer";
+import { AVPlugin } from "vue-audio-visual";
+// import aplayer from "vue-aplayer";
 
+/**
+ * 这里面的路由都作用在App.vue里面的<router-view>标签，如果App.vue里面写了侧边栏，登录页面也会嵌在带有侧边栏页面的主体里
+ */
 const VueRouter = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
+      path: "/login",
+      name: "Login",
+      component: () => import("@/views/login/Login.vue"),
+    },
+    // {
+    //   path: "/register",
+    //   name: "Register",
+    //   component: () => import("@/views/login/Register.vue"),
+    // },
+    {
       path: "/",
-      name: "Home",
-      component: () => import("./views/Home.vue"),
-    },
-    {
-      path: "/education/list",
-      name: "EList",
-      component: () => import("./views/education/List.vue"),
-    },
-    {
-      path: "/education/put",
-      name: "EPut",
-      component: () => import("./views/education/Post.vue"),
-    },
-    {
-      path: "/graduation/list",
-      name: "GList",
-      component: () => import("./views/graduation/List.vue"),
-    },
-    {
-      path: "/graduation/put",
-      name: "GPut",
-      component: () => import("./views/graduation/Post.vue"),
-    },
-    {
-      path: "/books/list",
-      name: "BList",
-      component: () => import("./views/books/List.vue"),
-    },
-    {
-      path: "/books/put",
-      name: "BPut",
-      component: () => import("./views/books/Post.vue"),
-    },
-    {
-      path: "/videos/list",
-      name: "VList",
-      component: () => import("./views/videos/List.vue"),
-    },
-    {
-      path: "/videos/put",
-      name: "VPut",
-      component: () => import("./views/videos/Post.vue"),
-    },
-    {
-      path: "/journey/list",
-      name: "JList",
-      component: () => import("./views/journey/List.vue"),
-    },
-    {
-      path: "/journey/put",
-      name: "JPut",
-      component: () => import("./views/journey/Post.vue"),
+      name: "Layout",
+      component: () => import("@/views/Layout.vue"),
+      redirect: "/home",
+      // children里的路由作用在Layout.vue里面的</router-view>标签
+      children: [
+        {
+          path: "/home",
+          name: "Home",
+          component: () => import("@/views/Home.vue"),
+        },
+        {
+          path: "/user",
+          name: "User",
+          component: () => import("@/views/login/User.vue"),
+        },
+        // {
+        //   path: "share/list",
+        //   name: "SList",
+        //   component: () => import("@/views/share/List.vue"),
+        // },
+        // {
+        //   path: "share/put",
+        //   name: "SPut",
+        //   component: () => import("@/views/share/Post.vue"),
+        // },
+        {
+          path: "player/music",
+          name: "Music",
+          component: () => import("@/views/player/Music.vue"),
+        },
+        {
+          path: "player/movie",
+          name: "Movie",
+          component: () => import("@/views/player/Movie.vue"),
+        },
+        {
+          path: "player/chat",
+          name: "Chat",
+          component: () => import("@/views/player/Chat.vue"),
+        },
+      ],
     },
   ],
 });
 
+// ---------------------- 路由拦截 方法 -----------------------------------//
+// VueRouter.beforeEach((to, from, next) => {
+//   // document.title = `${to.meta.title} | vue-manage-system`; //可以设置网站头部
+//   const role = localStorage.getItem("user");
+//   if (!role && to.path !== "/login" && to.path !== "/register") {
+//     next("/login");
+//   } else {
+//     if (role && to.path === "/login") {
+//       next("/home");
+//     }
+//     next();
+//   }
+// });
+
 const app = createApp(App);
-app.use(
-  ElementPlus,
-  {
-    locale: zhCn,
-  },
-  axios
-);
+app.use(ElementPlus, {
+  locale: zhCn,
+});
+// app.use(axios);
 app.use(VueRouter);
+app.use(AVPlugin);
+app.use(vue3videoPlay);
 app.mount("#app");
+
+//export default后，别的文件通过import就可以使用
+export default VueRouter;

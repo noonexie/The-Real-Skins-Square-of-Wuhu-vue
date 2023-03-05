@@ -1,10 +1,20 @@
 <template>
-  <h1>制作团队：芜湖三回首科技团队</h1>
-  <h1>支持我们</h1>
   <div>
+    <h1>制作团队：芜湖三回首科技团队</h1>
+    <h1>支持我们</h1>
     <span>
-      <img src="../image/pay/wechat.png" align="middle" width="400" height="400" />微信打赏
-      <img src="../image/pay/alipay.jpg" align="middle" width="400" height="600" />支付宝打赏
+      <img
+        src="@/static/image/pay/wechat.png"
+        align="middle"
+        width="230"
+        height="200"
+      />微信打赏
+      <img
+        src="@/static/image/pay/alipay.jpg"
+        align="middle"
+        width="250"
+        height="300"
+      />支付宝打赏
     </span>
   </div>
 </template>

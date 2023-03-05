@@ -1,6 +1,8 @@
 node_modules
+release
 .DS_Store
 dist
+prod
 dist-ssr
 *.local
 dist-electron
