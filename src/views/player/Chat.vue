@@ -57,7 +57,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onActivated, reactive } from "vue";
+import { onActivated, onMounted, reactive } from "vue";
 import { ElMessage } from "element-plus";
 
 // const chatUser = ref("");
@@ -78,7 +78,7 @@ const state: IState = reactive({
   content: "",
 });
 
-onActivated(() => {
+onMounted(() => {
   init();
 });
 
@@ -132,7 +132,7 @@ const init = () => {
     state.username = JSON.parse(userInfo).name;
   } else {
     ElMessage({
-      message: "用户未登录，请点击右上角登陆",
+      message: "用户未登录，请从右上角个人信息中登陆/或尝试刷新加载用户信息",
       type: "error",
     });
   }
@@ -142,7 +142,10 @@ const init = () => {
     console.log("您的浏览器不支持WebSocket");
   } else {
     console.log("您的浏览器支持WebSocket");
-    let socketUrl = "ws://localhost:9090/imserver/" + state.username;
+    // 生产环境
+    let socketUrl = `ws://${location.host}/chat/imserver/` + state.username;
+    // 开发环境
+    // let socketUrl = `ws://localhost:9090/imserver/` + state.username;
     if (socket != null) {
       socket.close();
       socket = null;
