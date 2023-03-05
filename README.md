@@ -1,6 +1,7 @@
 # Vue 3 + Typescript + Vite + elementPlus + electron
 
 ## 芜湖真皮广场-前端
+网址 : http://111.67.193.226:3000/
 
 ### 功能
 1. 电影搜索
