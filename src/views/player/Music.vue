@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 400px; margin: 10px auto">
+  <div style="width: 400px; margin: 1vh auto">
     <div style="font-size: 50px; text-align: center">
       音乐搜索
       <el-form :model="req">

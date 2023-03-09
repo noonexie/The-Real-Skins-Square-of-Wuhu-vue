@@ -1,8 +1,8 @@
 <template>
-  <div style="padding: 10px; margin-bottom: 50px">
+  <div style="margin-bottom: 50px">
     <el-row>
-      <el-col :span="4">
-        <el-card style="width: 300px; height: 300px; color: #333">
+      <el-col :span="8">
+        <el-card style="width: 95%; height: 40vh; color: #333">
           <div style="padding-bottom: 10px; border-bottom: 1px solid #ccc">
             在线用户
           </div>
@@ -11,35 +11,35 @@
             v-for="user in state.users"
             :key="user.username"
           >
-            <span style="font-size: 10px; color: cornflowerblue">{{
-              user.username
-            }}</span>
+            <span style="font-size: 10px; color: cornflowerblue">
+              {{ user.username }}
+            </span>
           </div>
         </el-card>
       </el-col>
-      <el-col :span="20">
+      <el-col :span="16">
         <div
           style="
-            width: 800px;
+            width: 100%;
             margin: 0 auto;
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 0 10px #ccc;
           "
         >
-          <div style="text-align: center; line-height: 50px">聊天室</div>
+          <div style="text-align: center; line-height: 5vh">聊天室</div>
           <div
-            style="height: 350px; overflow: auto; border-top: 1px solid #ccc"
+            style="height: 50vh; overflow: auto; border-top: 1px solid #ccc"
             v-html="state.content"
           ></div>
-          <div style="height: 200px">
+          <div style="height: 30vh">
             <textarea
               v-model="state.text"
               style="
-                height: 160px;
+                height: 20vh;
                 width: 100%;
                 padding: 20px;
-                border: none;
+                border: #333;
                 border-top: 1px solid #ccc;
                 border-bottom: 1px solid #ccc;
                 outline: none;
@@ -78,7 +78,7 @@ const state: IState = reactive({
   content: "",
 });
 
-onMounted(() => {
+onActivated(() => {
   init();
 });
 
