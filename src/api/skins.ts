@@ -154,7 +154,7 @@ export const searchMovie = (params: {
 }) => {
   return http({
     method: "get",
-    url: `/movie/api/v2/search`,
+    url: `https://api.cupfox.app/api/v2/search`,
     params,
   });
 };
@@ -169,7 +169,7 @@ export const searchMusic = (params: {
 }) => {
   return http({
     method: "get",
-    url: `/music/song_search_v2`,
+    url: `https://songsearch.kugou.com/song_search_v2`,
     params,
   });
 };
@@ -188,7 +188,7 @@ export const getMp3Url = (params: {
 }) => {
   return http({
     method: "get",
-    url: `/mp3/yy/index.php`,
+    url: `https://wwwapi.kugou.com/yy/index.php`,
     params,
   });
 };
