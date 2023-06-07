@@ -16,11 +16,11 @@ const VueRouter = createRouter({
       name: "Login",
       component: () => import("@/views/login/Login.vue"),
     },
-    // {
-    //   path: "/register",
-    //   name: "Register",
-    //   component: () => import("@/views/login/Register.vue"),
-    // },
+    {
+      path: "/register",
+      name: "Register",
+      component: () => import("@/views/login/Register.vue"),
+    },
     {
       path: "/",
       name: "Layout",
@@ -52,6 +52,11 @@ const VueRouter = createRouter({
           path: "player/music",
           name: "Music",
           component: () => import("@/views/player/Music.vue"),
+        },
+        {
+          path: "player/schedule",
+          name: "Schedule",
+          component: () => import("@/views/player/Schedule.vue"),
         },
         {
           path: "player/movie",

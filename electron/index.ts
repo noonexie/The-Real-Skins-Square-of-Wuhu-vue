@@ -25,4 +25,4 @@ const createWindow = () => {
   // win.webContents.openDevTools();
 };
 
-app.whenReady().then(createWindow);
+// app.whenReady().then(createWindow);

@@ -28,6 +28,13 @@
               v-model="userForm.nickname"
             />
           </el-form-item>
+          <el-form-item prop="email">
+            <el-input
+              placeholder="请输入邮箱"
+              :prefix-icon="Message"
+              v-model="userForm.email"
+            />
+          </el-form-item>
           <el-form-item prop="password">
             <el-input
               placeholder="请输入密码"
@@ -60,7 +67,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { Lock, User, Avatar } from "@element-plus/icons-vue";
+import { Lock, User, Avatar, Message } from "@element-plus/icons-vue";
 import { ElMessage, FormInstance } from "element-plus";
 import { postRegister } from "@/api/skins";
 import VueRouter from "@/main";
@@ -69,12 +76,14 @@ const ruleFormRef = ref<FormInstance>();
 const userForm = reactive({
   username: "",
   nickname: "",
+  email: "",
   password: "",
   confirm: "",
 });
 const rules = reactive({
   username: [{ required: true, message: "请输入账号", trigger: "blur" }],
   nickname: [{ required: true, message: "请输入昵称", trigger: "blur" }],
+  email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
   password: [{ required: true, message: "请输入密码", trigger: "blur" }],
   confirm: [{ required: true, message: "请确认密码", trigger: "blur" }],
 });

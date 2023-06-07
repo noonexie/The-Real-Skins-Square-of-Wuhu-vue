@@ -67,6 +67,11 @@
         <el-icon><Headset /></el-icon>音乐馆
       </template>
     </el-menu-item>
+    <el-menu-item index="/player/schedule">
+      <template #title>
+        <el-icon><Headset /></el-icon>日程表
+      </template>
+    </el-menu-item>
     <el-menu-item index="/player/chat">
       <template #title>
         <el-icon><ChatDotRound /></el-icon>聊天室
