@@ -34,7 +34,7 @@
         confirm-button-text="确定"
         cancel-button-text="取消"
         title="确认修改用户信息吗？"
-        @confirm="loginForm"
+        @confirm="submitForm"
       >
         <!-- ts无法使用this.$refs.ref,ref操作可以通过方法传到bom层 -->
         <template #reference>
@@ -63,7 +63,7 @@ const userData = reactive({
 });
 
 onActivated(() => {
-  getUserName();
+  getUserInfo();
 });
 
 const getUserName = async () => {
@@ -86,6 +86,7 @@ const getUserInfo = async () => {
     // console.log(res.data.data.username);
     userData.username = res.data.data.username;
     userData.nickname = res.data.data.nickname;
+    userData.email = res.data.data.email;
     userData.password = res.data.data.password;
     userData.avatar =
       res.data.data.avatar == null

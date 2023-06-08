@@ -9,7 +9,7 @@ import http from "@/utils/axios";
 export const postLogin = (data: { username: string; password: string }) => {
   return http({
     method: "post",
-    url: `/user/login`,
+    url: `/api/user/login`,
     data,
   });
 };
@@ -23,10 +23,11 @@ export const postRegister = (data: {
   username: string;
   password: string;
   nickname: string;
+  email: string;
 }) => {
   return http({
     method: "post",
-    url: `/user/register`,
+    url: `/api/user/register`,
     data,
   });
 };
@@ -39,7 +40,7 @@ export const postRegister = (data: {
 export const getUserById = (id: number) => {
   return http({
     method: "get",
-    url: `/user/${id}`,
+    url: `/api/user/${id}`,
     // data,
   });
 };
@@ -55,7 +56,7 @@ export const putUserInfo = (data: {
 }) => {
   return http({
     method: "put",
-    url: `/user`,
+    url: `/api/user`,
     data,
   });
 };
@@ -88,21 +89,32 @@ export const getAllShare = (params: {
   });
 };
 
+export const getAllSchedule = (params: {
+  // 不加params：get的参数传不进去，即不会/share?num=X&size=X&这样请求
+  pageNum: number;
+  pageSize: number;
+  search: string;
+}) => {
+  return http({
+    method: "get",
+    url: `/api/schedule/listSchedule`,
+    params,
+  });
+};
+
 /**
  * 数据提交接口
  */
 export const postShare = (data: {
   id: number;
-  dataType: string;
-  dataName: string;
-  dataUrl: string;
-  dataText: string;
-  imgUrl: string;
-  likes: number;
+  user: number;
+  start: Date;
+  end: Date;
+  things: string;
 }) => {
   return http({
     method: "post",
-    url: `/share/dataShare`,
+    url: `/api/schedule/putSchedule`,
     data,
   });
 };

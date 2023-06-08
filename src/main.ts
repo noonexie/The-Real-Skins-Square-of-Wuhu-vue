@@ -38,25 +38,30 @@ const VueRouter = createRouter({
           name: "User",
           component: () => import("@/views/login/User.vue"),
         },
-        // {
-        //   path: "share/list",
-        //   name: "SList",
-        //   component: () => import("@/views/share/List.vue"),
-        // },
-        // {
-        //   path: "share/put",
-        //   name: "SPut",
-        //   component: () => import("@/views/share/Post.vue"),
-        // },
+        {
+          path: "share/list",
+          name: "SList",
+          component: () => import("@/views/share/List.vue"),
+        },
+        {
+          path: "share/put",
+          name: "SPut",
+          component: () => import("@/views/share/Post.vue"),
+        },
         {
           path: "player/music",
           name: "Music",
           component: () => import("@/views/player/Music.vue"),
         },
         {
-          path: "player/schedule",
-          name: "Schedule",
-          component: () => import("@/views/player/Schedule.vue"),
+          path: "player/LSchedule",
+          name: "LSchedule",
+          component: () => import("@/views/player/ListSchedule.vue"),
+        },
+        {
+          path: "player/PSchedule",
+          name: "PSchedule",
+          component: () => import("@/views/player/PostSchedule.vue"),
         },
         {
           path: "player/movie",
