@@ -2,11 +2,10 @@
   <div>
     <div>
       <p>日程安排</p>
-      <el-input
+      <el-date-picker
         v-model="state.search"
-        style="width: 30%"
-        placeholder="请输入关键字"
-        clearable
+        type="date"
+        placeholder="Pick a day"
       />
       <el-button type="primary" @click="getListData">按时间搜索</el-button>
       <el-button type="primary" @click="routerPS">添加日程</el-button>
@@ -17,24 +16,38 @@
       stripe
       style="width: 100%"
       :data="state.tableData"
-      :default-sort="{ prop: 'start', order: 'descending' }"
+      :default-sort="{ prop: 'start', order: 'ascending' }"
     >
       <!-- <el-table-column prop="id" label="ID" width="100" sortable>
       </el-table-column> -->
 
       <el-table-column prop="start" label="起始时间" sortable>
+        <template #default="scope">
+          {{ getTime(scope.row.start) }}
+          <el-tag type="success">{{ getWeek(scope.row.start) }}</el-tag>
+        </template>
       </el-table-column>
 
-      <el-table-column prop="end" label="终止时间"> </el-table-column>
+      <el-table-column prop="end" label="终止时间">
+        <template #default="scope">
+          {{ getTime(scope.row.end) }}
+          <el-tag type="success">{{ getWeek(scope.row.end) }}</el-tag>
+        </template>
+      </el-table-column>
 
-      <el-table-column prop="user" label="用户名"> </el-table-column>
+      <el-table-column prop="user" label="用户名">
+        <template #default="scope">
+          {{ getUserName(scope.row.user) }}
+        </template>
+      </el-table-column>
 
       <el-table-column prop="things" label="可玩事项"> </el-table-column>
 
       <el-table-column label="操作">
         <template #default="scope">
           <el-button
-            type="text"
+            type="primary"
+            link
             size="small"
             @click="changeLikes(1, scope.row.id)"
           >
@@ -42,7 +55,8 @@
           </el-button>
 
           <el-button
-            type="text"
+            type="primary"
+            link
             size="small"
             @click="changeLikes(0, scope.row.id)"
           >
@@ -60,7 +74,7 @@
             "
             :on-exceed="handleExceed"
           >
-            <el-button type="text" size="small">添加图片</el-button>
+            <el-button type="primary" link size="small">添加图片</el-button>
           </el-upload>
         </template>
       </el-table-column>
@@ -82,14 +96,15 @@
 </template>
 
 <script setup lang="ts">
-import { onActivated, reactive } from "vue";
+import { onActivated, reactive, ref } from "vue";
 import { ElMessage, UploadProps } from "element-plus";
 import { getAllSchedule, putImg, putLikes, getTitle } from "@/api/skins";
 import VueRouter from "../../main";
+import { getUserById, putUserInfo } from "@/api/skins";
 
 //定义数据结构
 interface IState {
-  search: string;
+  search: Date;
   pageParams: {
     pageNum: number;
     pageSize: number;
@@ -105,7 +120,7 @@ interface IState {
 }
 
 const state: IState = reactive({
-  search: "",
+  search: new Date(),
   pageParams: {
     pageNum: 1,
     pageSize: 10,
@@ -129,8 +144,6 @@ const changeLikes = (changeType: number, id_h: number) => {
 // 上传成功的图片
 const addImg = async (response: any, id_r: number) => {
   const res = await putImg({ id: id_r, url: response.data });
-  // console.log(response);
-  // console.log(res);
   if (res.data.code == 0) {
     ElMessage({
       message: "添加成功",
@@ -153,9 +166,7 @@ const getListData = async () => {
       search: state.search,
     });
     if (data) {
-      console.log(data.data.data);
       state.tableData = data.data.data.records;
-      // console.log(state.tableData);
       state.pageParams.total = data.data.data.total;
     }
   } catch (e) {
@@ -168,14 +179,70 @@ const routerPS = () => {
   VueRouter.push("/player/PSchedule");
 };
 
+// 求时间
+const getTime = (time: Date) => {
+  if (time) {
+    let date = new Date(time);
+    let year = date.getFullYear();
+    /* 在日期格式中，月份是从0开始的，因此要加0
+     * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+     * */
+    let month =
+      date.getMonth() + 1 < 10
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1;
+    let day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    let hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+    let minutes =
+      date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+    let seconds =
+      date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+    // 拼接
+    return (
+      year +
+      "-" +
+      month +
+      "-" +
+      day +
+      " " +
+      hours +
+      ":" +
+      minutes +
+      ":" +
+      seconds
+    );
+  } else {
+    return "";
+  }
+};
+
+// 求周几
+const getWeek = (day: Date) => {
+  let week = new Date(day).getDay();
+  if (week == 0) return "星期日";
+  if (week == 1) return "星期一";
+  if (week == 2) return "星期二";
+  if (week == 3) return "星期三";
+  if (week == 4) return "星期四";
+  if (week == 5) return "星期五";
+  if (week == 6) return "星期六";
+};
+
+const getUserName = async (id: number) => {
+  console.log(id);
+  const res = await getUserById(id);
+  if (res) {
+    const name = res.data.data.nickname;
+    return name;
+  } else console.log("res.data.data.nickname");
+};
+
 const handleSizeChange = (val: number) => {
-  // console.log(`${val} items per page`);
   state.pageParams.pageSize = val;
   getListData();
 };
 
 const handleCurrentChange = (val: number) => {
-  // console.log(`current page: ${val}`);
   state.pageParams.pageNum = val;
   getListData();
 };

@@ -93,7 +93,7 @@ export const getAllSchedule = (params: {
   // 不加params：get的参数传不进去，即不会/share?num=X&size=X&这样请求
   pageNum: number;
   pageSize: number;
-  search: string;
+  search: Date;
 }) => {
   return http({
     method: "get",
