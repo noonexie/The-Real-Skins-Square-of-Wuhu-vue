@@ -120,6 +120,28 @@ export const postShare = (data: {
 };
 
 /**
+ * 联系创建者
+ */
+export const sendToUser = (params: { fromId: number; thingId: number }) => {
+  return http({
+    method: "get",
+    url: `/api/schedule/smtc`,
+    params,
+  });
+};
+
+/**
+ * 广播给其他人
+ */
+export const sendToOther = (params: { thingId: number }) => {
+  return http({
+    method: "get",
+    url: `/api/schedule/smto`,
+    params,
+  });
+};
+
+/**
  * 点赞修改接口
  */
 export const putLikes = (params: { id: number; type: number }) => {

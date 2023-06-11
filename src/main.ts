@@ -38,16 +38,16 @@ const VueRouter = createRouter({
           name: "User",
           component: () => import("@/views/login/User.vue"),
         },
-        {
-          path: "share/list",
-          name: "SList",
-          component: () => import("@/views/share/List.vue"),
-        },
-        {
-          path: "share/put",
-          name: "SPut",
-          component: () => import("@/views/share/Post.vue"),
-        },
+        // {
+        //   path: "share/list",
+        //   name: "SList",
+        //   component: () => import("@/views/share/List.vue"),
+        // },
+        // {
+        //   path: "share/put",
+        //   name: "SPut",
+        //   component: () => import("@/views/share/Post.vue"),
+        // },
         {
           path: "player/music",
           name: "Music",

@@ -218,13 +218,13 @@ const submitForm = async (
       // console.log(ruleForm.imgUrl);
 
       // 未作提交失败处理
-      const res = await postShare(ruleForm);
-      if (res.data.code == 0) {
-        ElMessage({
-          message: "提交成功",
-          type: "success",
-        });
-      }
+      // const res = await postShare(ruleForm);
+      // if (res.data.code == 0) {
+      //   ElMessage({
+      //     message: "提交成功",
+      //     type: "success",
+      //   });
+      // }
 
       formEl.resetFields();
       uploadEL.clearFiles();

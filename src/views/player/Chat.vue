@@ -59,6 +59,7 @@
 <script setup lang="ts">
 import { onActivated, onMounted, reactive } from "vue";
 import { ElMessage } from "element-plus";
+import { getUserById } from "@/api/skins";
 
 // const chatUser = ref("");
 const messages = [];
@@ -125,11 +126,13 @@ const createContent = (remoteUser: string, nowUser: string, text: string) => {
   // console.log(html);
 };
 
-const init = () => {
+const init = async () => {
   const userInfo = localStorage.getItem("user");
 
   if (userInfo) {
-    state.username = JSON.parse(userInfo).name;
+    let userId: number = JSON.parse(userInfo).data;
+    const res = await getUserById(userId);
+    state.username = res.data.data.nickname;
   } else {
     ElMessage({
       message: "用户未登录，请从右上角个人信息中登陆/或尝试刷新加载用户信息",
@@ -143,9 +146,9 @@ const init = () => {
   } else {
     console.log("您的浏览器支持WebSocket");
     // 生产环境
-    let socketUrl = `ws://${location.host}/chat/imserver/` + state.username;
+    // let socketUrl = `ws://${location.host}/chat/imserver/` + state.username;
     // 开发环境
-    // let socketUrl = `ws://localhost:9090/imserver/` + state.username;
+    let socketUrl = `ws://localhost:9090/imserver/` + state.username;
     if (socket != null) {
       socket.close();
       socket = null;

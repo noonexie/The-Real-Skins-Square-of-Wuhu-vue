@@ -93,18 +93,17 @@ const submitForm = async (
       const userInfo = localStorage.getItem("user");
       if (userInfo) {
         ruleForm.user = JSON.parse(userInfo).data;
-      }
-
-      if (ruleForm.user != 0) {
-        // 未作提交失败处理
-        const res = await postShare(ruleForm);
-        if (res.data.code == 0) {
-          ElMessage({
-            message: "提交成功",
-            type: "success",
-          });
+        if (ruleForm.user != 0) {
+          // 未作提交失败处理
+          const res = await postShare(ruleForm);
+          if (res.data.code == 0) {
+            ElMessage({
+              message: "提交成功",
+              type: "success",
+            });
+          }
+          routerLS();
         }
-        routerLS();
       } else {
         ElMessage({
           message: "提交失败：未登录",

@@ -50,13 +50,13 @@
     background-color="skyblue"
     router
   >
-    <el-sub-menu index="1">
+    <!-- <el-sub-menu index="1">
       <template #title>
         <el-icon><Guide /></el-icon>广场中心
       </template>
       <el-menu-item index="/share/list">琳琅满目</el-menu-item>
       <el-menu-item index="/share/put">推荐共享</el-menu-item>
-    </el-sub-menu>
+    </el-sub-menu> -->
     <el-menu-item index="/player/movie">
       <template #title>
         <el-icon><Film /></el-icon>影视厅

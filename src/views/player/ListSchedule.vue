@@ -35,47 +35,38 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="user" label="用户名">
-        <template #default="scope">
-          {{ getUserName(scope.row.user) }}
-        </template>
-      </el-table-column>
+      <el-table-column prop="username" label="用户名"> </el-table-column>
 
       <el-table-column prop="things" label="可玩事项"> </el-table-column>
 
       <el-table-column label="操作">
         <template #default="scope">
-          <el-button
-            type="primary"
-            link
-            size="small"
-            @click="changeLikes(1, scope.row.id)"
+          <el-tooltip
+            content="创建人点击后邮箱广播该条目至所有用户"
+            placement="top"
           >
-            通知
-          </el-button>
-
-          <el-button
-            type="primary"
-            link
-            size="small"
-            @click="changeLikes(0, scope.row.id)"
+            <el-button
+              type="warning"
+              link
+              size="small"
+              @click="connectOther(scope.row.user, scope.row.id)"
+            >
+              广播
+            </el-button>
+          </el-tooltip>
+          <el-tooltip
+            content="对该条目感兴趣，点击邮箱通知其创建人"
+            placement="top"
           >
-            联系
-          </el-button>
-
-          <el-upload
-            class="upload-demo"
-            action="/api/share/imgUpload/"
-            :limit="1"
-            :on-success="
-              (response: any) => {
-                return addImg(response, scope.row.id);
-              }
-            "
-            :on-exceed="handleExceed"
-          >
-            <el-button type="primary" link size="small">添加图片</el-button>
-          </el-upload>
+            <el-button
+              type="primary"
+              link
+              size="small"
+              @click="connectCreator(scope.row.id, scope.row.user)"
+            >
+              联系
+            </el-button>
+          </el-tooltip>
         </template>
       </el-table-column>
     </el-table>
@@ -96,11 +87,11 @@
 </template>
 
 <script setup lang="ts">
-import { onActivated, reactive, ref } from "vue";
-import { ElMessage, UploadProps } from "element-plus";
-import { getAllSchedule, putImg, putLikes, getTitle } from "@/api/skins";
+import { onActivated, reactive } from "vue";
+import { ElMessage } from "element-plus";
+import { getAllSchedule, sendToUser, sendToOther } from "@/api/skins";
 import VueRouter from "../../main";
-import { getUserById, putUserInfo } from "@/api/skins";
+import { getUserById } from "@/api/skins";
 
 //定义数据结构
 interface IState {
@@ -111,10 +102,10 @@ interface IState {
     total: number;
   };
   tableData: {
-    id: number; // 数据id
     start: Date; // 起
     end: Date; // 止
-    user: string; // 用户
+    user: number; // 用户id
+    username: string; // 用户名
     things: string; // 事件
   }[];
 }
@@ -135,30 +126,60 @@ onActivated(() => {
   getListData();
 });
 
-const changeLikes = (changeType: number, id_h: number) => {
-  putLikes({ id: id_h, type: changeType });
-  // state.tableData[id_h].likes++;
-  getListData();
-};
-
-// 上传成功的图片
-const addImg = async (response: any, id_r: number) => {
-  const res = await putImg({ id: id_r, url: response.data });
-  if (res.data.code == 0) {
+const connectOther = async (id_user: number, id_thing: number) => {
+  const userInfo = localStorage.getItem("user");
+  if (userInfo) {
+    let id_from: number = JSON.parse(userInfo).data;
+    if (id_from == id_user) {
+      const res = await sendToOther({ thingId: id_thing });
+      if (res.data.code == 0) {
+        ElMessage({
+          message: "通知成功",
+          type: "success",
+        });
+      }
+    } else {
+      ElMessage({
+        message: "您不是该条目创建者，无权通知",
+        type: "error",
+      });
+    }
+  } else {
     ElMessage({
-      message: "添加成功",
-      type: "success",
+      message: "通知失败：未登录",
+      type: "error",
     });
   }
-  getListData();
 };
 
-const handleExceed: UploadProps["onExceed"] = () => {
-  ElMessage.warning(`一次只能添加一张图片
-  请清除页面上传记录后再次提交`);
+const connectCreator = async (id: number, id_user: number) => {
+  const userInfo = localStorage.getItem("user");
+  if (userInfo) {
+    let id_from: number = JSON.parse(userInfo).data;
+    if (id_from == id_user) {
+      ElMessage({
+        message: "您是该条目创建者，无需联系",
+        type: "error",
+      });
+    } else {
+      const res = await sendToUser({ fromId: id_from, thingId: id });
+      if (res.data.code == 0) {
+        ElMessage({
+          message: "联系成功",
+          type: "success",
+        });
+      }
+    }
+  } else {
+    ElMessage({
+      message: "联系失败：未登录",
+      type: "error",
+    });
+  }
 };
 
 const getListData = async () => {
+  state.tableData = [];
   try {
     const data = await getAllSchedule({
       pageNum: state.pageParams.pageNum,
@@ -168,6 +189,12 @@ const getListData = async () => {
     if (data) {
       state.tableData = data.data.data.records;
       state.pageParams.total = data.data.data.total;
+      for (let i = 0; i < state.pageParams.total; i++) {
+        // const dataTemp = data.data.data.records[i];
+        const res = await getUserById(data.data.data.records[i].user);
+        state.tableData[i].username = res.data.data.nickname;
+        // state.tableData.push(dataTemp);
+      }
     }
   } catch (e) {
     // console.log(e);
@@ -219,22 +246,13 @@ const getTime = (time: Date) => {
 // 求周几
 const getWeek = (day: Date) => {
   let week = new Date(day).getDay();
-  if (week == 0) return "星期日";
-  if (week == 1) return "星期一";
-  if (week == 2) return "星期二";
-  if (week == 3) return "星期三";
-  if (week == 4) return "星期四";
-  if (week == 5) return "星期五";
-  if (week == 6) return "星期六";
-};
-
-const getUserName = async (id: number) => {
-  console.log(id);
-  const res = await getUserById(id);
-  if (res) {
-    const name = res.data.data.nickname;
-    return name;
-  } else console.log("res.data.data.nickname");
+  if (week == 0) return "周日";
+  if (week == 1) return "周一";
+  if (week == 2) return "周二";
+  if (week == 3) return "周三";
+  if (week == 4) return "周四";
+  if (week == 5) return "周五";
+  if (week == 6) return "周六";
 };
 
 const handleSizeChange = (val: number) => {
