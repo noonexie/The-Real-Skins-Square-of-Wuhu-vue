@@ -30,14 +30,14 @@
         {{ scope.row.text.replaceAll("<em>","").replaceAll("</em>","") }}
       </template>
     </el-table-column>
-    <el-table-column label="平台" width="200">
+    <el-table-column label="平台" >
       <template #default="scope">
         <el-image style="width: 15px; height: 15px" :src="scope.row.icon" />
         {{ scope.row.website }}
       </template>
     </el-table-column>
-    <el-table-column prop="tags" label="标签" width="200" />
-    <el-table-column label="网址" width="150" slot-scope="scope">
+    <el-table-column prop="tags" label="标签"  />
+    <el-table-column label="网址" slot-scope="scope">
       <template #default="scope">
         <el-link type="primary" :href="scope.row.url" target="_blank" underline>
           前往观看

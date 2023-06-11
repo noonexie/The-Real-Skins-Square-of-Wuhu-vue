@@ -20,12 +20,12 @@
         {{ scope.row.FileName }}
       </template>
     </el-table-column>
-    <el-table-column label="专辑" width="300">
+    <el-table-column label="专辑" >
       <template #default="scope">
         {{ scope.row.AlbumName }}
       </template>
     </el-table-column>
-    <el-table-column label="获取资源" width="100" slot-scope="scope">
+    <el-table-column label="获取资源" slot-scope="scope">
       <template #default="scope">
         <el-button
           type="primary"
@@ -37,7 +37,7 @@
         </el-button>
       </template>
     </el-table-column>
-    <el-table-column label="播放" width="350" slot-scope="scope">
+    <el-table-column label="播放" slot-scope="scope">
       <template #default="scope">
         <audio :src="scope.row.PlayUrl" controls loop></audio>
       </template>

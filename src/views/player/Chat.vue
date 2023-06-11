@@ -146,9 +146,9 @@ const init = async () => {
   } else {
     console.log("您的浏览器支持WebSocket");
     // 生产环境
-    // let socketUrl = `ws://${location.host}/chat/imserver/` + state.username;
+    let socketUrl = `ws://${location.host}/api/imserver/` + state.username;
     // 开发环境
-    let socketUrl = `ws://localhost:9090/imserver/` + state.username;
+    // let socketUrl = `ws://localhost:9090/imserver/` + state.username;
     if (socket != null) {
       socket.close();
       socket = null;
