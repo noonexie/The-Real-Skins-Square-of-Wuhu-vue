@@ -1,20 +1,23 @@
 <template>
   <div>
     <p>添加日程</p>
-    <el-form ref="ruleFormRef" :model="ruleForm" :size="formSize">
-      <el-form-item label="起止时间">
-        <el-date-picker
-          v-model="timeRange"
-          type="datetimerange"
-          range-separator="To"
-          start-placeholder="Start date"
-          end-placeholder="End date"
-        />
+    <el-form
+      ref="ruleFormRef"
+      :model="ruleForm"
+      :rules="rules"
+      :size="formSize"
+    >
+      <el-form-item label="开始时间" prop="start">
+        <el-date-picker v-model="ruleForm.start" type="datetime" />
       </el-form-item>
-      <el-form-item label="可玩事项">
+      <el-form-item label="结束时间" prop="end">
+        <el-date-picker v-model="ruleForm.end" type="datetime" />
+      </el-form-item>
+      <el-form-item label="可玩事项" prop="things">
         <el-input
-          v-model="dataText"
+          v-model="ruleForm.things"
           type="textarea"
+          style="width: 80%"
           :autosize="{ minRows: 2, maxRows: 4 }"
         />
       </el-form-item>
@@ -58,15 +61,15 @@ const ruleForm = reactive({
   things: "",
 });
 
-// 表单重置
-const resetForm = (
-  formEl: FormInstance | undefined,
-  uploadEL: any | undefined
-) => {
-  if (!formEl) return;
-  formEl.resetFields();
-  uploadEL.clearFiles();
-};
+// 表单规则限制
+const rules = reactive({
+  start: [{ required: true, message: "请选择日程开始时间", trigger: "blur" }],
+  end: [
+    { required: true, message: "请选择日程结束时间", trigger: "blur" },
+    // { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+  ],
+  things: [{ required: true, message: "请输入您的可玩事项", trigger: "blur" }],
+});
 
 // 路由跳转
 const routerLS = () => {
@@ -81,13 +84,18 @@ const submitForm = async (
   if (!formEl) return;
   await formEl.validate(async (valid: any, fields: any) => {
     if (valid) {
-      ruleForm.start = timeRange.value[0];
-      ruleForm.end = timeRange.value[1];
-      ruleForm.things = dataText.value;
       const userInfo = localStorage.getItem("user");
       if (userInfo) {
         ruleForm.user = JSON.parse(userInfo).data;
-        if (ruleForm.user != 0) {
+        if (ruleForm.user) {
+          // 校验start<end
+          if (ruleForm.start >= ruleForm.end) {
+            ElMessage({
+              message: "结束时间应大于开始时间",
+              type: "error",
+            });
+            return;
+          }
           // 未作提交失败处理
           const res = await postShare(ruleForm);
           if (res.data.code == 0) {
