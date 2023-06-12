@@ -1,13 +1,7 @@
 <template>
   <div>
     <p>添加日程</p>
-    <el-form
-      ref="ruleFormRef"
-      :model="ruleForm"
-      label-width="120px"
-      :size="formSize"
-      style="width: 50%"
-    >
+    <el-form ref="ruleFormRef" :model="ruleForm" :size="formSize">
       <el-form-item label="起止时间">
         <el-date-picker
           v-model="timeRange"

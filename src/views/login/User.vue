@@ -126,12 +126,20 @@ const login = () => {
 };
 
 const submitForm = async () => {
-  const res = await putUserInfo(userData);
-  // console.log(res);
-  if (res.data.code == 0) {
+  const userInfo = localStorage.getItem("user");
+  if (userInfo) {
+    const res = await putUserInfo(userData);
+    // console.log(res);
+    if (res.data.code == 0) {
+      ElMessage({
+        message: "修改成功",
+        type: "success",
+      });
+    }
+  } else {
     ElMessage({
-      message: "修改成功",
-      type: "success",
+      message: "用户未登录",
+      type: "error",
     });
   }
 };

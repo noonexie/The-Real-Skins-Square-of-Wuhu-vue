@@ -42,6 +42,10 @@
 
   <el-divider border-style="dashed" style="margin: 5px" />
 
+  <!-- <el-row>
+    <el-col :span="21"> <b>芜湖真皮广场</b> </el-col>
+    <el-col :span="3"></el-col>
+  </el-row> -->
   <!-- <el-header> -->
   <el-menu
     mode="horizontal"
@@ -59,22 +63,22 @@
     </el-sub-menu> -->
     <el-menu-item index="/player/movie">
       <template #title>
-        <el-icon><Film /></el-icon>影视厅
+        <el-icon><Film /></el-icon>影视
       </template>
     </el-menu-item>
     <el-menu-item index="/player/music">
       <template #title>
-        <el-icon><Headset /></el-icon>音乐馆
+        <el-icon><Headset /></el-icon>音乐
       </template>
     </el-menu-item>
     <el-menu-item index="/player/LSchedule">
       <template #title>
-        <el-icon><Headset /></el-icon>日程表
+        <el-icon><Headset /></el-icon>日程
       </template>
     </el-menu-item>
     <el-menu-item index="/player/chat">
       <template #title>
-        <el-icon><ChatDotRound /></el-icon>聊天室
+        <el-icon><ChatDotRound /></el-icon>聊天
       </template>
     </el-menu-item>
   </el-menu>
